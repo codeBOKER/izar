@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -64,10 +63,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				// Custom colors for our underwear shop
-				beige: '#F5F2EA',
+				beige: '#e2dad2',
 				darkblue: '#1A3A5A',
 				softgray: '#F1F0FB',
 				navy: '#2C3E50',
+				red: '#af2734',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
