@@ -52,22 +52,16 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				},
-				// Custom colors for our underwear shop
+				// Custom colors
 				beige: '#e2dad2',
-				darkblue: '#1A3A5A',
+				darkblue: '#af2734', // Main red
 				softgray: '#F1F0FB',
-				navy: '#2C3E50',
-				red: '#af2734',
+				navy: '#8f1f29', // Dark red variant
+				red: {
+					DEFAULT: '#af2734', // Main red
+					light: '#f7e6e8', // Light red
+					dark: '#8f1f29', // Dark red
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

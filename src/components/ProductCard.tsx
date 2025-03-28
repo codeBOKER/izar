@@ -47,7 +47,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 style={{ 
                   backgroundColor: 
                     color === 'white' ? '#ffffff' : 
-                    color === 'blue' ? '#1A73E8' : 
+                    color === 'blue' ? '#af2734' : // Replace blue with red
                     color === 'gray' ? '#9AA0A6' : 
                     color === 'black' ? '#202124' :
                     color === 'red' ? '#EA4335' : '#ffffff'
