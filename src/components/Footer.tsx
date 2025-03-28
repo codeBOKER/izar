@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-darkblue text-white py-12">
+    <footer className="bg-red text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        <div className="border-t border-gray-700 mt-8 pt-8 text-sm text-center">
+        <div className="border-t border-red-700 mt-8 pt-8 text-sm text-center">
           <p>&copy; {new Date().getFullYear()} ملابس داخلية فاخرة. جميع الحقوق محفوظة.</p>
         </div>
       </div>
