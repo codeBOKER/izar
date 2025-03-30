@@ -10,11 +10,11 @@ const Hero: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-center md:text-right mb-10 md:mb-0">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-darkblue mb-6">
-              ملابس داخلية فاخرة <br />
+              ملابس رجالية فاخرة <br />
               <span className="text-red">بجودة استثنائية</span>
             </h1>
             <p className="text-gray-600 text-lg mb-8 max-w-lg mx-auto md:mx-0 md:mr-0">
-              نقدم لكم أفضل الملابس الداخلية المصنوعة من القطن المصري الفاخر، مصممة لتوفير الراحة والأناقة في حياتكم اليومية.
+              نقدم لكم أفضل الملابس الداخلية المصنوعة من القطن الفاخر، مصممة لتوفير الراحة والأناقة في حياتكم اليومية.
             </p>
             <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
               <Link to="/products">
@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
               {/* Replace with actual product image */}
               <div className="absolute inset-0 flex items-center justify-center bg-beige">
                 <img 
-                  src="/assets/placeholder.svg"
+                  src="/basic-img.jpg"
                   alt="مجموعة ملابس داخلية فاخرة" 
                   className="object-contain h-full w-full p-8"
                 />

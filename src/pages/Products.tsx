@@ -16,7 +16,7 @@ const Products: React.FC = () => {
           <div className="container mx-auto px-4">
             <h1 className="text-4xl font-bold text-darkblue text-center">منتجاتنا</h1>
             <p className="text-gray-600 text-center mt-4 max-w-2xl mx-auto">
-              تصفح مجموعتنا الكاملة من الملابس الداخلية عالية الجودة المصنوعة من أفضل أنواع القطن المصري
+              تصفح مجموعتنا الكاملة من الملابس الرجالية عالية الجودة المصنوعة من أفضل أنواع القطن 
             </p>
           </div>
         </div>

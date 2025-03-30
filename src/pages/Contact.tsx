@@ -31,24 +31,24 @@ const Contact: React.FC = () => {
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-medium text-darkblue mb-2">العنوان</h3>
-                    <p className="text-gray-600">المنطقة الصناعية، القاهرة، مصر</p>
+                    <p className="text-gray-600">تريم، حضرموت، اليمن</p>
                   </div>
                   
                   <div>
                     <h3 className="text-lg font-medium text-darkblue mb-2">البريد الإلكتروني</h3>
-                    <p className="text-gray-600">info@example.com</p>
-                    <p className="text-gray-600">support@example.com</p>
+                    <p className="text-gray-600">izar@gmail.com</p>
+                    <p className="text-gray-600">support@gmail.com</p>
                   </div>
                   
                   <div>
                     <h3 className="text-lg font-medium text-darkblue mb-2">الهاتف</h3>
-                    <p className="text-gray-600">+20 123 456 7890</p>
-                    <p className="text-gray-600">+20 123 456 7891</p>
+                    <p className="text-gray-600">+96777 777777</p>
+                    <p className="text-gray-600">+96777 777778</p>
                   </div>
                   
                   <div>
                     <h3 className="text-lg font-medium text-darkblue mb-2">ساعات العمل</h3>
-                    <p className="text-gray-600">الأحد - الخميس: 9:00 ص - 5:00 م</p>
+                    <p className="text-gray-600">الأحد - الخميس: 8:00 ص - 1:00 م</p>
                     <p className="text-gray-600">الجمعة - السبت: مغلق</p>
                   </div>
                 </div>

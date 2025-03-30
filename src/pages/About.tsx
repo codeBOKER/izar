@@ -19,7 +19,7 @@ const About: React.FC = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-navy mb-4">من نحن</h2>
               <p className="text-gray-700 mb-4">
-                نحن شركة رائدة في مجال صناعة الملابس الداخلية الرجالية الفاخرة، تأسست منذ أكثر من 30 عاماً. 
+                نحن شركة رائدة في مجال صناعة الملابس الرجالية الفاخرة، تأسست منذ أكثر من 30 عاماً. 
                 نسعى دائماً لتقديم منتجات عالية الجودة مصنوعة من أفضل أنواع القطن المصري، لضمان الراحة والمتانة والأناقة لعملائنا.
               </p>
               <p className="text-gray-700">
@@ -31,7 +31,7 @@ const About: React.FC = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-navy mb-4">رؤيتنا</h2>
               <p className="text-gray-700">
-                نسعى لأن نكون الشركة الرائدة في مجال صناعة الملابس الداخلية الرجالية في الشرق الأوسط،
+                نسعى لأن نكون الشركة الرائدة في مجال صناعة الملابس الرجالية في الشرق الأوسط،
                 وأن نقدم منتجات ذات جودة عالمية تلبي احتياجات وتطلعات عملائنا.
               </p>
             </div>
@@ -49,8 +49,8 @@ const About: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-lg shadow-md text-center">
                   <div className="text-4xl font-bold text-darkblue mb-2">٣٠+</div>
-                  <div className="text-lg font-medium text-navy mb-2">عاماً من الخبرة</div>
-                  <p className="text-gray-600 text-sm">خبرة طويلة في مجال صناعة الملابس الداخلية الرجالية</p>
+                  <div className="text-lg font-medium text-navy mb-2">فرعا تجاريا</div>
+                  <p className="text-gray-600 text-sm">انتشار واسع لخدمة العملاء</p>
                 </div>
                 
                 <div className="bg-white p-6 rounded-lg shadow-md text-center">

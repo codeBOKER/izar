@@ -8,8 +8,8 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">ملابس داخلية فاخرة</h3>
-            <p className="mb-4">نقدم أفضل الملابس الداخلية المصنوعة من أجود أنواع القطن المصري</p>
+            <h3 className="text-xl font-bold mb-4">ملابس رجالية فاخرة</h3>
+            <p className="mb-4">نقدم أفضل الملابس الداخلية المصنوعة من أجود أنواع القطن الفاخر</p>
             <div className="flex space-x-4 space-x-reverse">
               <a href="#" className="text-white hover:text-gray-300">
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -42,14 +42,14 @@ const Footer: React.FC = () => {
           
           <div>
             <h3 className="text-xl font-bold mb-4">اتصل بنا</h3>
-            <p className="mb-2">المنطقة الصناعية، القاهرة، مصر</p>
-            <p className="mb-2">البريد الإلكتروني: info@example.com</p>
-            <p className="mb-2">هاتف: +20 123 456 7890</p>
+            <p className="mb-2">تريم، حضرموت، اليمن</p>
+            <p className="mb-2">البريد الإلكتروني: izar@gmail.com</p>
+            <p className="mb-2">هاتف: +967 777 777777</p>
           </div>
         </div>
         
         <div className="border-t border-red-700 mt-8 pt-8 text-sm text-center">
-          <p>&copy; {new Date().getFullYear()} ملابس داخلية فاخرة. جميع الحقوق محفوظة.</p>
+          <p>&copy; {new Date().getFullYear()} ملابس رجالية فاخرة. جميع الحقوق محفوظة.</p>
         </div>
       </div>
     </footer>

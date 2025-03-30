@@ -12,8 +12,8 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2 space-x-reverse">
-            <Shirt className="h-8 w-8 text-red" />
-            <span className="text-2xl font-bold text-red">ملابس داخلية فاخرة</span>
+            <img src="/logo.png" alt="شعار" className="h-10 w-15" />
+            {/* <span className="text-2xl font-bold text-red">ملابس داخلية فاخرة</span> */}
           </Link>
           
           <nav className="hidden md:flex space-x-6 space-x-reverse">
