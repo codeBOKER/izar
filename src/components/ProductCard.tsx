@@ -22,28 +22,28 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div className="product-card bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="relative h-64 bg-beige flex items-center justify-center p-4">
+    <div className="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
+      <div className="relative h-48 bg-beige flex items-center justify-center p-3">
         <img 
           src={getImageSrc()}
           alt={product.name} 
-          className="h-full object-contain" 
+          className="h-full object-contain mix-blend-multiply" 
         />
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-bold text-darkblue">{product.name}</h3>
-        <p className="text-sm text-gray-600 mb-3">{product.typeArabic}</p>
+        <h3 className="text-base font-bold text-darkblue mb-1">{product.name}</h3>
+        <p className="text-xs text-gray-500 mb-2">{product.typeArabic}</p>
         
-        <div className="mb-4">
-          <div className="text-sm font-medium mb-2">الألوان المتاحة:</div>
+        <div className="mb-3">
+          <div className="text-xs font-medium mb-1.5">الألوان المتاحة:</div>
           <div className="flex space-x-2 space-x-reverse">
             {product.colors.map((color) => (
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full border-2 ${
-                  selectedColor === color ? 'border-darkblue' : 'border-transparent'
-                }`}
+                className={`w-5 h-5 rounded-full border ${
+                  selectedColor === color ? 'border-darkblue ring-1 ring-darkblue' : 'border-gray-200'
+                } transition-all duration-200`}
                 style={{ 
                   backgroundColor: 
                     color === 'white' ? '#ffffff' : 
@@ -58,13 +58,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
         </div>
         
-        <div className="mb-4">
-          <div className="text-sm font-medium mb-2">المقاسات المتاحة:</div>
-          <div className="flex flex-wrap gap-2">
+        <div>
+          <div className="text-xs font-medium mb-1.5">المقاسات المتاحة:</div>
+          <div className="flex flex-wrap gap-1.5">
             {product.sizes.map((size) => (
               <span
                 key={size}
-                className="inline-block border border-gray-300 rounded px-2 py-1 text-xs"
+                className="inline-block border border-gray-200 rounded-md px-2 py-0.5 text-xs text-gray-600 bg-gray-50"
               >
                 {size}
               </span>
