@@ -6,15 +6,14 @@ import { Link } from 'react-router-dom';
 const Hero: React.FC = () => {
   return (
     <div className="relative bg-gradient-to-r from-slate-50 to-softgray">
-      <div className="container mx-auto px-4 py-16 md:py-24">
+      <div className="container mx-auto px-4 py-16 md:py-20">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-center md:text-right mb-10 md:mb-0">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-darkblue mb-6">
-              ملابس رجالية فاخرة <br />
-              <span className="text-red">بجودة استثنائية</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-darkblue mb-4">
+              ملابس رجالية فاخرة
             </h1>
             <p className="text-gray-600 text-lg mb-8 max-w-lg mx-auto md:mx-0 md:mr-0">
-              نقدم لكم أفضل الملابس الداخلية المصنوعة من القطن الفاخر، مصممة لتوفير الراحة والأناقة في حياتكم اليومية.
+              أجود أنواع القطن مع تصاميم عصرية توفر الراحة والأناقة
             </p>
             <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
               <Link to="/products">
@@ -22,22 +21,20 @@ const Hero: React.FC = () => {
                   تسوق الآن
                 </Button>
               </Link>
-              <Link to="/about">
-                <Button variant="outline" className="border-red text-red hover:bg-red hover:text-white px-8 py-3 rounded-md text-lg">
-                  اكتشف المزيد
-                </Button>
-              </Link>
             </div>
           </div>
           <div className="md:w-1/2 relative">
             <div className="relative h-64 sm:h-80 md:h-96 w-full bg-white rounded-xl shadow-lg overflow-hidden border border-red/20">
-              {/* Replace with actual product image */}
               <div className="absolute inset-0 flex items-center justify-center bg-beige">
-                <img 
-                  src="/basic-img.jpg"
-                  alt="مجموعة ملابس داخلية فاخرة" 
-                  className="object-contain h-full w-full p-8"
-                />
+                <video 
+                  autoPlay 
+                  loop 
+                  muted 
+                  className="object-cover h-full w-full"
+                >
+                  <source src="/logo-animation.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
               <div className="absolute top-4 right-4 bg-red text-white text-sm py-1 px-3 rounded-full">
                 منتجات عالية الجودة
