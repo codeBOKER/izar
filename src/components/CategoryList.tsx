@@ -47,7 +47,7 @@ const CategoryList: React.FC = () => {
             return (
               <Card key={category.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 {/* Top part with category image */}
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-72 overflow-hidden">
                   <img 
                     src={category.image} 
                     alt={category.name}
@@ -73,7 +73,8 @@ const CategoryList: React.FC = () => {
                     </Link>
                   </div>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Always show products in a row, even on mobile */}
+                  <div className="grid grid-cols-2 gap-3">
                     {categoryProducts.map((product) => (
                       <Link to={`/product/${product.id}`} key={product.id}>
                         <ProductCard product={product} />
