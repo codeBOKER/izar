@@ -37,7 +37,7 @@ const getCategoryProducts = (categoryId: string, count: number = 2) => {
 
 const CategoryList: React.FC = () => {
   return (
-    <div className="bg-softgray py-16">
+    <div className="bg-red/10 py-16">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center text-darkblue mb-12">تصفح حسب الفئة</h2>
         
@@ -46,9 +46,9 @@ const CategoryList: React.FC = () => {
             const categoryProducts = getCategoryProducts(category.id);
             
             return (
-              <Card key={category.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <Card key={category.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 border-0">
                 {/* Top part with category image */}
-                <div className="relative h-72 overflow-hidden">
+                <div className="relative h-72 overflow-hidden bg-white">
                   <img 
                     src={category.image} 
                     alt={category.name}
@@ -81,15 +81,6 @@ const CategoryList: React.FC = () => {
                         <ProductCard product={product} />
                       </Link>
                     ))}
-                  </div>
-                  
-                  {/* Show More button */}
-                  <div className="mt-4 text-center">
-                    <Link to={`/products/${category.id}`}>
-                      <Button variant="outline" className="w-full border-darkblue text-darkblue hover:bg-darkblue hover:text-white">
-                        عرض المزيد
-                      </Button>
-                    </Link>
                   </div>
                 </CardContent>
               </Card>

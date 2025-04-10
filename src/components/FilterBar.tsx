@@ -1,9 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Product, ProductSize, ProductColor } from '../data/products';
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { Filter, ChevronDown } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 interface FilterBarProps {
@@ -14,6 +12,10 @@ interface FilterBarProps {
 export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }) => {
   const [selectedSizes, setSelectedSizes] = useState<ProductSize[]>([]);
   const [selectedColors, setSelectedColors] = useState<ProductColor[]>([]);
+  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+
+  // Predefined keywords for filtering
+  const keywords = ['شورت', 'فنيلة', 'بوكسر'];
 
   // Get all available sizes from products
   const allSizes = Array.from(
@@ -28,25 +30,35 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
   // Apply filters
   useEffect(() => {
     let result = [...products];
-    
+
     if (selectedSizes.length > 0) {
-      result = result.filter(product => 
+      result = result.filter(product =>
         selectedSizes.some(size => product.sizes.includes(size))
       );
     }
-    
+
     if (selectedColors.length > 0) {
-      result = result.filter(product => 
+      result = result.filter(product =>
         selectedColors.some(color => product.colors.includes(color))
       );
     }
-    
+
+    if (selectedKeywords.length > 0) {
+      result = result.filter(product =>
+        selectedKeywords.some(keyword =>
+          product.name.includes(keyword) ||
+          product.typeArabic.includes(keyword) ||
+          product.description.includes(keyword)
+        )
+      );
+    }
+
     onFilterChange(result);
-  }, [selectedSizes, selectedColors, products, onFilterChange]);
+  }, [selectedSizes, selectedColors, selectedKeywords, products, onFilterChange]);
 
   // Toggle size selection
   const toggleSize = (size: ProductSize) => {
-    setSelectedSizes(prev => 
+    setSelectedSizes(prev =>
       prev.includes(size)
         ? prev.filter(s => s !== size)
         : [...prev, size]
@@ -55,10 +67,19 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
 
   // Toggle color selection
   const toggleColor = (color: ProductColor) => {
-    setSelectedColors(prev => 
+    setSelectedColors(prev =>
       prev.includes(color)
         ? prev.filter(c => c !== color)
         : [...prev, color]
+    );
+  };
+
+  // Toggle keyword selection
+  const toggleKeyword = (keyword: string) => {
+    setSelectedKeywords(prev =>
+      prev.includes(keyword)
+        ? prev.filter(k => k !== keyword)
+        : [...prev, keyword]
     );
   };
 
@@ -66,13 +87,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
   const resetFilters = () => {
     setSelectedSizes([]);
     setSelectedColors([]);
+    setSelectedKeywords([]);
   };
 
   // Translate color names to Arabic
   const colorNameArabic = (color: ProductColor): string => {
     const colorMap: Record<ProductColor, string> = {
       'white': 'أبيض',
-      'blue': 'أحمر',
+      'blue': 'ازرق',
       'gray': 'رمادي',
       'black': 'أسود',
       'red': 'أحمر'
@@ -81,16 +103,16 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4">
+    <div className="bg-red/5 rounded-lg shadow p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Filter size={18} className="text-darkblue" />
           <h2 className="text-sm font-bold text-darkblue">تصفية المنتجات</h2>
         </div>
-        {(selectedSizes.length > 0 || selectedColors.length > 0) && (
-          <Button 
-            variant="ghost" 
-            size="sm" 
+        {(selectedSizes.length > 0 || selectedColors.length > 0 || selectedKeywords.length > 0) && (
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={resetFilters}
             className="text-xs hover:text-red/90"
           >
@@ -99,104 +121,101 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Sizes Filter */}
         <div>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" size="sm" className="w-full justify-between">
-                <span>المقاسات</span>
-                <ChevronDown className="h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-56 p-3">
-              <div className="space-y-2">
-                <h3 className="text-sm font-medium">اختر المقاسات</h3>
-                <div className="flex flex-wrap gap-2">
-                  {allSizes.map(size => (
-                    <ToggleGroupItem
-                      key={size}
-                      value={size}
-                      aria-label={`مقاس ${size}`}
-                      data-state={selectedSizes.includes(size) ? "on" : "off"}
-                      onClick={() => toggleSize(size)}
-                      className="border border-gray-200 rounded-md px-2 py-1 text-xs"
-                    >
-                      {size}
-                    </ToggleGroupItem>
-                  ))}
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium">المقاسات</h3>
+            <div className="flex flex-wrap gap-2">
+              {allSizes.map(size => (
+                <Button
+                  key={size}
+                  variant={selectedSizes.includes(size) ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleSize(size)}
+                  className="bg-red/10 text-xs"
+                >
+                  {size}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Colors Filter */}
         <div>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" size="sm" className="w-full justify-between">
-                <span>الألوان</span>
-                <ChevronDown className="h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-56 p-3">
-              <div className="space-y-2">
-                <h3 className="text-sm font-medium">اختر الألوان</h3>
-                <div className="flex flex-wrap gap-2">
-                  {allColors.map(color => (
-                    <div key={color} className="flex items-center">
-                      <ToggleGroupItem
-                        value={color}
-                        aria-label={`لون ${colorNameArabic(color)}`}
-                        data-state={selectedColors.includes(color) ? "on" : "off"}
-                        onClick={() => toggleColor(color)}
-                        className="flex items-center gap-1.5 border border-gray-200 rounded-md px-2 py-1 text-xs"
-                      >
-                        <span
-                          className="w-3 h-3 rounded-full inline-block"
-                          style={{
-                            backgroundColor:
-                              color === 'white' ? '#ffffff' :
-                              color === 'blue' ? '#af2734' : // Blue is actually red in the app
-                              color === 'gray' ? '#9AA0A6' :
-                              color === 'black' ? '#202124' :
-                              color === 'red' ? '#EA4335' : '#ffffff'
-                          }}
-                        />
-                        <span>{colorNameArabic(color)}</span>
-                      </ToggleGroupItem>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium">الألوان</h3>
+            <div className="flex flex-wrap gap-2">
+              {allColors.map(color => (
+                <Button
+                  key={color}
+                  variant={selectedColors.includes(color) ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleColor(color)}
+                  className="bg-red/10 text-xs flex items-center gap-1.5"
+                >
+                  <span
+                    className="w-5 h-5 rounded-full inline-block"
+                    style={{
+                      backgroundColor:
+                        color === 'white' ? '#ffffff' :
+                        color === 'blue' ? '#af2734' : // Blue is actually red in the app
+                        color === 'gray' ? '#9AA0A6' :
+                        color === 'black' ? '#202124' :
+                        color === 'red' ? '#EA4335' : '#ffffff'
+                    }}
+                  />
+                  {/* <span>{colorNameArabic(color)}</span> */}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Keywords Filter */}
+        <div>
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium">نوع المنتج</h3>
+            <div className="flex flex-wrap gap-2">
+              {keywords.map(keyword => (
+                <Button
+                  key={keyword}
+                  variant={selectedKeywords.includes(keyword) ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleKeyword(keyword)}
+                  className="bg-red/10 text-xs"
+                >
+                  {keyword}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Filter chips for selected filters */}
-      {(selectedSizes.length > 0 || selectedColors.length > 0) && (
+      {(selectedSizes.length > 0 || selectedColors.length > 0 || selectedKeywords.length > 0) && (
         <div className="mt-3 flex flex-wrap gap-2">
           {selectedSizes.map(size => (
-            <div 
+            <div
               key={size}
               className="bg-softgray text-darkblue text-xs px-2 py-1 rounded-full flex items-center"
               onClick={() => toggleSize(size)}
             >
-              <span>مقاس: {size}</span>
-              <button className="ml-1 text-xs">&times;</button>
+              <span>{size}</span>
+              <button className="mr-2 text-xs">&times;</button>
             </div>
           ))}
           {selectedColors.map(color => (
-            <div 
+            <div
               key={color}
               className="bg-softgray text-darkblue text-xs px-2 py-1 rounded-full flex items-center"
               onClick={() => toggleColor(color)}
             >
               <span>
                 <span
-                  className="w-2 h-2 rounded-full inline-block mr-1"
+                  className="w-4 h-4 rounded-full inline-block mt-1"
                   style={{
                     backgroundColor:
                       color === 'white' ? '#ffffff' :
@@ -206,9 +225,19 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
                       color === 'red' ? '#EA4335' : '#ffffff'
                   }}
                 />
-                {colorNameArabic(color)}
+                {/* {colorNameArabic(color)} */}
               </span>
-              <button className="ml-1 text-xs">&times;</button>
+              <button className="mr-2 text-xs">&times;</button>
+            </div>
+          ))}
+          {selectedKeywords.map(keyword => (
+            <div
+              key={keyword}
+              className="bg-softgray text-darkblue text-xs px-2 py-1 rounded-full flex items-center"
+              onClick={() => toggleKeyword(keyword)}
+            >
+              <span>{keyword}</span>
+              <button className="mr-2 text-xs">&times;</button>
             </div>
           ))}
         </div>
