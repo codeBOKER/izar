@@ -1,18 +1,16 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { productTypes, getProductsByType } from '../data/products';
 import ProductTypeSection from '../components/ProductTypeSection';
 import { Button } from "@/components/ui/button";
-import { FilterBar } from '../components/FilterBar';
 
 const ProductType: React.FC = () => {
   const { typeId } = useParams<{ typeId: string }>();
   const type = productTypes.find(t => t.id === typeId);
   const products = getProductsByType(typeId || '');
-  const [filteredProducts, setFilteredProducts] = useState(products);
 
   if (!type || products.length === 0) {
     return (
@@ -57,17 +55,11 @@ const ProductType: React.FC = () => {
         </div>
 
         <div className="container mx-auto px-4 py-8">
-          {/* Filter Bar */}
-          <FilterBar 
-            products={products} 
-            onFilterChange={setFilteredProducts}
-          />
-
           <div className="mt-8">
             <ProductTypeSection
               typeId={type.id}
               typeLabel=""
-              products={filteredProducts}
+              products={products}
             />
           </div>
           

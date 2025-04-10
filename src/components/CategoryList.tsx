@@ -4,6 +4,8 @@ import { Card, CardContent } from "./ui/card";
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { products } from '../data/products';
+import { Button } from "@/components/ui/button";
+import { ChevronRight } from "lucide-react";
 
 const categories = [
   {
@@ -80,6 +82,16 @@ const CategoryList: React.FC = () => {
                         <ProductCard product={product} />
                       </Link>
                     ))}
+                  </div>
+                  
+                  {/* Show More Button */}
+                  <div className="mt-6 text-center">
+                    <Link to={`/products/${category.id}`}>
+                      <Button variant="outline" className="w-full border-red text-red hover:bg-red hover:text-white">
+                        <span>عرض المزيد</span>
+                        <ChevronRight className="h-4 w-4 mr-1" />
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
