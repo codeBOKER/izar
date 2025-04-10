@@ -4,6 +4,7 @@ import { Card, CardContent } from "./ui/card";
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { products } from '../data/products';
+import { Button } from "@/components/ui/button";
 
 const categories = [
   {
@@ -80,6 +81,15 @@ const CategoryList: React.FC = () => {
                         <ProductCard product={product} />
                       </Link>
                     ))}
+                  </div>
+                  
+                  {/* Show More button */}
+                  <div className="mt-4 text-center">
+                    <Link to={`/products/${category.id}`}>
+                      <Button variant="outline" className="w-full border-darkblue text-darkblue hover:bg-darkblue hover:text-white">
+                        عرض المزيد
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

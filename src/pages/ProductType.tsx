@@ -10,8 +10,42 @@ import { FilterBar } from '../components/FilterBar';
 
 const ProductType: React.FC = () => {
   const { typeId } = useParams<{ typeId: string }>();
-  const type = productTypes.find(t => t.id === typeId);
-  const products = getProductsByType(typeId || '');
+  
+  // First check if typeId is 'underwear' or 'outwear' (category IDs)
+  const isCategory = typeId === 'underwear' || typeId === 'outwear';
+  
+  // If it's a category, get all products of that category
+  let products = [];
+  let type = null;
+  
+  if (isCategory) {
+    // For categories, we need to get products based on the category
+    const categoryMap: Record<string, string[]> = {
+      'underwear': ['half-sleeve-khonagi', 'half-sleeve-round', 'half-sleeve-v-neck', 'sleeveless-undershirt'],
+      'outwear': ['half-sleeve-collared', 'mens-short', 'tank-top']
+    };
+    
+    const relevantTypes = categoryMap[typeId || ''] || [];
+    
+    // Get all products for the types in this category
+    relevantTypes.forEach(productType => {
+      products = [...products, ...getProductsByType(productType)];
+    });
+    
+    // Create a mock type for the category
+    type = {
+      id: typeId || '',
+      label: typeId === 'underwear' ? 'الملابس الداخلية' : 'الملابس الخارجية',
+      description: typeId === 'underwear' 
+        ? 'مجموعة متنوعة من الملابس الداخلية المصنوعة من أجود أنواع القطن'
+        : 'تشكيلة فاخرة من الملابس الخارجية بأعلى معايير الجودة'
+    };
+  } else {
+    // If it's not a category, it's a regular product type
+    type = productTypes.find(t => t.id === typeId);
+    products = getProductsByType(typeId || '');
+  }
+  
   const [filteredProducts, setFilteredProducts] = useState(products);
 
   if (!type || products.length === 0) {
