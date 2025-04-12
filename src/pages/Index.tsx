@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import CategoryList from '../components/CategoryList';
 import ProductGrid from '../components/ProductGrid';
+import BusinessPartners from '../components/BusinessPartners';
 import { products } from '../data/products';
 
 const Index: React.FC = () => {
@@ -29,6 +30,8 @@ const Index: React.FC = () => {
         </div>
         
         <CategoryList />
+        
+        <BusinessPartners />
         
         <div className="container mx-auto px-4 py-16">
           <div className="bg-beige rounded-xl p-8 md:p-12 text-center">
