@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Product, ProductSize, ProductColor } from '../data/products';
 import { Filter } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 interface FilterBarProps {
   products: Product[];
@@ -126,19 +127,19 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
         <div>
           <div className="space-y-2">
             <h3 className="text-sm font-medium">المقاسات</h3>
-            <div className="flex flex-wrap gap-2">
+            <ToggleGroup type="multiple" className="flex flex-wrap gap-2">
               {allSizes.map(size => (
-                <Button
+                <ToggleGroupItem
                   key={size}
+                  value={size}
                   variant={selectedSizes.includes(size) ? "default" : "outline"}
-                  size="sm"
                   onClick={() => toggleSize(size)}
                   className="bg-red/10 text-xs"
                 >
                   {size}
-                </Button>
+                </ToggleGroupItem>
               ))}
-            </div>
+            </ToggleGroup>
           </div>
         </div>
 
@@ -146,12 +147,12 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
         <div>
           <div className="space-y-2">
             <h3 className="text-sm font-medium">الألوان</h3>
-            <div className="flex flex-wrap gap-2">
+            <ToggleGroup type="multiple" className="flex flex-wrap gap-2">
               {allColors.map(color => (
-                <Button
+                <ToggleGroupItem
                   key={color}
+                  value={color}
                   variant={selectedColors.includes(color) ? "default" : "outline"}
-                  size="sm"
                   onClick={() => toggleColor(color)}
                   className="bg-red/10 text-xs flex items-center gap-1.5"
                 >
@@ -167,9 +168,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
                     }}
                   />
                   {/* <span>{colorNameArabic(color)}</span> */}
-                </Button>
+                </ToggleGroupItem>
               ))}
-            </div>
+            </ToggleGroup>
           </div>
         </div>
 
@@ -177,19 +178,19 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
         <div>
           <div className="space-y-2">
             <h3 className="text-sm font-medium">نوع المنتج</h3>
-            <div className="flex flex-wrap gap-2">
+            <ToggleGroup type="multiple" className="flex flex-wrap gap-2">
               {keywords.map(keyword => (
-                <Button
+                <ToggleGroupItem
                   key={keyword}
+                  value={keyword}
                   variant={selectedKeywords.includes(keyword) ? "default" : "outline"}
-                  size="sm"
                   onClick={() => toggleKeyword(keyword)}
                   className="bg-red/10 text-xs"
                 >
                   {keyword}
-                </Button>
+                </ToggleGroupItem>
               ))}
-            </div>
+            </ToggleGroup>
           </div>
         </div>
       </div>

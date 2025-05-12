@@ -6,6 +6,7 @@ import { products } from '../data/products';
 import ProductGrid from '../components/ProductGrid';
 import { Input } from "@/components/ui/input";
 import { Search } from 'lucide-react';
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const Products: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -78,17 +79,18 @@ const Products: React.FC = () => {
 
             <div className="mt-2">
               <div className="text-sm text-gray-600 mb-2">تصفية حسب النوع:</div>
-              <div className="flex flex-wrap gap-2">
+              <ToggleGroup type="single" className="flex flex-wrap gap-2">
                 {['شورت', 'فنيلة', 'بوكسر'].map((keyword) => (
-                  <button
+                  <ToggleGroupItem
                     key={keyword}
+                    value={keyword}
                     onClick={() => setSearchQuery(keyword)}
                     className="inline-block bg-softgray hover:bg-gray-200 text-darkblue py-1 px-3 rounded-full text-sm"
                   >
                     {keyword}
-                  </button>
+                  </ToggleGroupItem>
                 ))}
-              </div>
+              </ToggleGroup>
             </div>
           </div>
 

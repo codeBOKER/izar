@@ -9,9 +9,14 @@ interface ProductTypeSectionProps {
   products: Product[];
 }
 
-const ProductTypeSection: React.FC<ProductTypeSectionProps> = ({typeId, products }) => {
+const ProductTypeSection: React.FC<ProductTypeSectionProps> = ({typeId, typeLabel, products }) => {
   return (
+    <div>
+      {typeLabel && (
+        <h2 className="text-2xl font-semibold mb-4">{typeLabel}</h2>
+      )}
       <ProductGrid products={products} />
+    </div>
   );
 };
 
