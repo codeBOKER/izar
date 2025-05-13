@@ -11,13 +11,13 @@ const categories = [
     id: 'underwear',
     name: 'الملابس الداخلية',
     image: '/assets/underwear-category.jpg',
-    description: 'مجموعة متنوعة من الملابس الداخلية المصنوعة من أجود أنواع القطن'
+    description: 'تشكيلة متنوعة من المنتجات القطنية عالية الجودة للموزعين'
   },
   {
     id: 'outwear',
     name: 'الملابس الخارجية',
     image: '/assets/outwear-category.jpg',
-    description: 'تشكيلة فاخرة من الملابس الخارجية بأعلى معايير الجودة'
+    description: 'منتجات ملبوسات خارجية بمواصفات عالمية وأسعار تنافسية'
   }
 ];
 
@@ -70,7 +70,7 @@ const CategoryList: React.FC = () => {
                       to={`/products/${category.id}`} 
                       className="text-red hover:text-navy text-sm font-medium transition-colors"
                     >
-                      عرض الكل
+                      عرض التشكيلة الكاملة
                     </Link>
                   </div>
                   
