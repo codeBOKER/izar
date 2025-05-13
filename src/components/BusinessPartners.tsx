@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '../hooks/use-mobile';
@@ -10,20 +9,23 @@ interface Brand {
   name: string;
   logo: string;
   link: string;
+  bgImage: string; // Add background image URL property
 }
 
 const brands: Brand[] = [
   {
     id: 1,
-    name: "عزار الفاخرة",
+    name: "BAJHAM",
     logo: "https://placehold.co/400x200/ffffff/af2734?text=عزار+الفاخرة",
-    link: "/products/premium"
+    link: "/products/premium",
+    bgImage: "/assets/weave-red.webp"
   },
   {
     id: 2,
-    name: "عزار كلاسيك",
+    name: "ازار الفاخرة",
     logo: "https://placehold.co/400x200/ffffff/af2734?text=عزار+كلاسيك",
-    link: "/products/classic"
+    link: "/products/classic",
+    bgImage: "/assets/weave-white.webp"
   }
 ];
 
@@ -34,42 +36,26 @@ const BusinessPartners: React.FC = () => {
     <div className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-darkblue mb-2">علامات عزار</h2>
+          <h2 className="text-3xl font-bold text-darkblue mb-2">علامات تابعة لـــ ازار</h2>
           <div className="w-24 h-1 bg-red-light mx-auto mb-6"></div>
         </div>
         
         {/* Modern brand showcase grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-          {brands.map((brand) => (
-            <Link 
-              key={brand.id} 
-              to={brand.link}
-              className="block overflow-hidden rounded-lg hover:scale-[1.02] transition-transform duration-300"
-            >
-              <div className="bg-gradient-to-br from-white to-beige/50 p-0.5 rounded-lg shadow-lg">
-                <AspectRatio ratio={21/9} className="overflow-hidden rounded-lg bg-gradient-to-r from-white to-red-light/10">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <img 
-                      src={brand.logo} 
-                      alt={brand.name} 
-                      className="h-20 object-contain"
-                    />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white/80 to-transparent">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-xl font-bold text-darkblue">{brand.name}</h3>
-                      <Button 
-                        variant="ghost" 
-                        className="text-darkblue hover:bg-red-light/20 hover:text-darkblue"
-                        size="sm"
-                      >
-                        عرض المنتجات
-                      </Button>
-                    </div>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto ">
+          {brands.map((brand) => (             
+              <div
+                className="relative p-0.5 rounded-lg shadow-lg bg-cover bg-center rounded-xl overflow-hidden group"
+                style={{ backgroundImage: `url(${brand.bgImage})` }}
+              >
+                {/* Dark overlay with blur for background filter */}
+                <div className="absolute inset-0 bg-white/10 backdrop-blur-md z-0 group-hover:backdrop-blur-0 transition-all duration-300" /> 
+                 <AspectRatio ratio={21/9} className="relative overflow-hidden rounded-lg z-10">
+                <h1 className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-white transition-all duration-300 group-hover:text-5xl">  
+                    {brand.name}
+                </h1>
                 </AspectRatio>
               </div>
-            </Link>
+            
           ))}
         </div>
         

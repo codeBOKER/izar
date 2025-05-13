@@ -18,6 +18,8 @@ const Index: React.FC = () => {
       <main className="flex-grow">
         <Hero />
         
+        <CategoryList />
+
         <div className="container mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-darkblue mb-4">منتجات بالجملة</h2>
@@ -28,8 +30,6 @@ const Index: React.FC = () => {
           
           <ProductGrid products={featuredProducts} />
         </div>
-        
-        <CategoryList />
         
         <BusinessPartners />
         
