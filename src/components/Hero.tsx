@@ -30,23 +30,13 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className="md:w-1/2 relative">
-            <div className="relative h-64 sm:h-80 md:h-96 w-full bg-white rounded-xl shadow-lg overflow-hidden border border-red/20">
+            <div className="relative h-64 sm:h-80 md:h-96 w-full  rounded-xl  overflow-hidden">
               {/* Replace with actual product image */}
-              <div className="absolute inset-0 flex items-center justify-center bg-beige">
-                <img 
-                  src="/basic-img.jpg"
-                  alt="منتجات ملابس رجالية بالجملة" 
-                  className="object-contain h-full w-full p-8"
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img
+                    src="/logo.png"
+                    className="object-contain h-full w-full "            
                 />
-              </div>
-              <div className="absolute top-4 right-4 bg-red text-white text-sm py-1 px-3 rounded-full">
-                عروض خاصة للموزعين
-              </div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 h-24 w-24 rounded-full bg-red flex items-center justify-center text-white text-center p-2">
-              <div>
-                <div className="text-xl font-bold">خصومات</div>
-                <div className="text-xs">تجارية</div>
               </div>
             </div>
           </div>
