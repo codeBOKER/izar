@@ -10,21 +10,21 @@ const Hero: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-center md:text-right mb-10 md:mb-0">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-darkblue mb-6">
-              منتجات ملابس رجالية <br />
-              <span className="text-red">بالجملة للتجار</span>
+              ملابس داخلية مريحة<br />
+              <span className="text-red">مع قمصان انيقة</span>
             </h1>
             <p className="text-gray-600 text-lg mb-8 max-w-lg mx-auto md:mx-0 md:mr-0">
-              نوفر مجموعة متميزة من الملابس الرجالية بالجملة للموزعين وتجار التجزئة، بجودة عالية وأسعار تنافسية تعزز ربحية أعمالكم التجارية.
+              نوفر ملابس رجالية تركية بجودة متميزة، وتصاميم خاصة عند الطلب، مع سرعة في التوريد وضمان الاستمرارية
             </p>
             <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
-              <Link to="/products">
-                <Button className="bg-red hover:bg-red/90 text-white px-8 py-3 rounded-md text-lg">
-                  استعراض المنتجات
+              <Link to="/contact">
+                <Button  className="bg-red hover:bg-red/90 text-white px-8 py-3 rounded-md text-lg">
+                  طلب عرض أسعار
                 </Button>
               </Link>
-              <Link to="/contact">
-                <Button variant="outline" className="border-red text-red hover:bg-red hover:text-white px-8 py-3 rounded-md text-lg">
-                  طلب عرض أسعار
+              <Link to="/products">
+                <Button variant="outline"  className="border-red text-red hover:bg-red hover:text-white px-8 py-3 rounded-md text-lg">
+                  استعراض المنتجات
                 </Button>
               </Link>
             </div>
