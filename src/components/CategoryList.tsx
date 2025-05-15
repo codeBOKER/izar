@@ -11,13 +11,15 @@ const categories = [
     id: 'underwear',
     name: 'الملابس الداخلية',
     image: '/assets/underwear-category.jpg',
-    description: 'تشكيلة متنوعة من المنتجات القطنية عالية الجودة للموزعين'
+    description: 'تشكيلة متنوعة من المنتجات القطنية عالية الجودة للموزعين',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', '4XL', '5XL', '6XL']
   },
   {
     id: 'outwear',
     name: 'الملابس الخارجية',
     image: '/assets/outwear-category.jpg',
-    description: 'منتجات ملبوسات خارجية بمواصفات عالمية وأسعار تنافسية'
+    description: 'منتجات ملبوسات خارجية بمواصفات عالمية وأسعار تنافسية',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', '4XL', '5XL']
   }
 ];
 
@@ -58,6 +60,18 @@ const CategoryList: React.FC = () => {
                     <div className="p-6 text-white">
                       <h3 className="text-2xl font-bold mb-2">{category.name}</h3>
                       <p className="text-white/80 text-sm">{category.description}</p>
+                      
+                      {/* Available Sizes Tag */}
+                      <div className="mt-3 bg-white/20 backdrop-blur-sm py-1 px-3 rounded-full inline-flex items-center">
+                        <span className="text-white text-xs font-medium">المقاسات المتوفرة: </span>
+                        <div className="flex flex-wrap gap-1 mr-1">
+                          {category.sizes.map((size, index) => (
+                            <span key={index} className="text-xs text-white">
+                              {size}{index < category.sizes.length - 1 ? '، ' : ''}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -11,7 +11,7 @@ interface ProductTypeSectionProps {
 
 const ProductTypeSection: React.FC<ProductTypeSectionProps> = ({typeId, typeLabel, products }) => {
   return (
-    <div>
+    <div className="w-full">
       {typeLabel && (
         <h2 className="text-2xl font-semibold mb-4">{typeLabel}</h2>
       )}

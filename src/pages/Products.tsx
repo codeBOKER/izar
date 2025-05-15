@@ -7,6 +7,7 @@ import ProductGrid from '../components/ProductGrid';
 import { Input } from "@/components/ui/input";
 import { Search } from 'lucide-react';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { FilterBar } from '../components/FilterBar';
 
 const Products: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,37 +18,15 @@ const Products: React.FC = () => {
     return [...products].sort(() => Math.random() - 0.5);
   }, [products]);
 
-  // Debounce function to delay search updates
-  const debounce = (func: Function, delay: number) => {
-    let timeoutId: NodeJS.Timeout;
-    return (...args: any[]) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => func(...args), delay);
-    };
+  // Handle filter change from FilterBar
+  const handleFilterChange = (filtered: typeof products) => {
+    setFilteredProducts(filtered);
   };
 
-  // Filter products based on search query with debounce
-  useEffect(() => {
-    const handleSearch = () => {
-      if (searchQuery.trim() === '') {
-        setFilteredProducts(shuffledProducts);
-      } else {
-        const filtered = shuffledProducts.filter(product =>
-          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.typeArabic.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setFilteredProducts(filtered);
-      }
-    };
-
-    // Apply debounce to search (300ms delay)
-    const debouncedSearch = debounce(handleSearch, 300);
-    debouncedSearch();
-
-    // Cleanup function
-    return () => clearTimeout(debouncedSearch as unknown as NodeJS.Timeout);
-  }, [searchQuery, shuffledProducts]);
+  // Update search query
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -62,36 +41,9 @@ const Products: React.FC = () => {
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-8">
-          <div className="sticky top-20 bg-white z-40 py-4 border-b mb-8">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                <Input
-                  type="text"
-                  placeholder="ابحث عن منتج..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-darkblue"
-                />
-              </div>
-            </div>
-
-            <div className="mt-2">
-              <div className="text-sm text-gray-600 mb-2">تصفية حسب النوع:</div>
-              <ToggleGroup type="single" className="flex flex-wrap gap-2">
-                {['شورت', 'فنيلة', 'بوكسر'].map((keyword) => (
-                  <ToggleGroupItem
-                    key={keyword}
-                    value={keyword}
-                    onClick={() => setSearchQuery(keyword)}
-                    className="inline-block bg-softgray hover:bg-gray-200 text-darkblue py-1 px-3 rounded-full text-sm"
-                  >
-                    {keyword}
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
-            </div>
+        <div className="container mx-auto px-4">
+          <div className="sticky top-20 z-40 bg-white py-4 mb-6 border-b">
+            <FilterBar products={shuffledProducts} onFilterChange={handleFilterChange} />
           </div>
 
           <ProductGrid products={filteredProducts} title="جميع المنتجات" />
