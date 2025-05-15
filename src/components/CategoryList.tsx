@@ -62,9 +62,7 @@ const CategoryList: React.FC = () => {
                 <CardContent className="p-6">
                   <div className="mb-4 flex justify-between items-center">
                     <h4 className="text-lg font-medium text-darkblue">منتجات مختارة</h4>
-                    <Link to={`/products/${category.id}`} className="text-red hover:text-navy text-sm font-medium transition-colors">
-                      عرض التشكيلة الكاملة
-                    </Link>
+                    <Link to={`/products/${category.id}`} className="text-red hover:text-navy text-sm font-medium transition-colors">عرض كل التشكيلات</Link>
                   </div>
                   
                   {/* Always show products in a row, even on mobile */}
