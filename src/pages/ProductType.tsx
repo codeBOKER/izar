@@ -112,34 +112,27 @@ const ProductType: React.FC = () => {
             </div>
           </Card>
           
-          {/* Product grid and filters - Two-column layout */}
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* Main content area - Products */}
-            <div className="md:w-3/4">
-              <ProductTypeSection
-                typeId={type.id}
-                typeLabel=""
-                products={filteredProducts}
-              />
-              
-              <div className="mt-12 text-center">
-                <Link to="/products">
-                  <Button variant="outline" className="border-darkblue text-darkblue hover:bg-darkblue hover:text-white">
-                    العودة إلى جميع المنتجات
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            
-            {/* Sidebar - Filters */}
-            <div className="md:w-1/4 md:order-last">
-              <div className="sticky top-24">
-                <FilterBar 
-                  products={products} 
-                  onFilterChange={setFilteredProducts}
-                />
-              </div>
-            </div>
+          {/* Filter bar - positioned at the top */}
+          <div className="sticky top-24 z-40 bg-white py-4 mb-6 border-b">
+            <FilterBar 
+              products={products} 
+              onFilterChange={setFilteredProducts}
+            />
+          </div>
+          
+          {/* Product grid */}
+          <ProductTypeSection
+            typeId={type.id}
+            typeLabel=""
+            products={filteredProducts}
+          />
+          
+          <div className="mt-12 text-center">
+            <Link to="/products">
+              <Button variant="outline" className="border-darkblue text-darkblue hover:bg-darkblue hover:text-white">
+                العودة إلى جميع المنتجات
+              </Button>
+            </Link>
           </div>
         </div>
       </main>

@@ -63,7 +63,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4">
+    <div className="bg-white rounded-lg shadow p-4 w-full">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">

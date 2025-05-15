@@ -1,16 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { products } from '../data/products';
 import ProductGrid from '../components/ProductGrid';
-import { Input } from "@/components/ui/input";
-import { Search } from 'lucide-react';
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { FilterBar } from '../components/FilterBar';
 
 const Products: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(products);
 
   // Shuffle products randomly - only once when component mounts
@@ -21,11 +17,6 @@ const Products: React.FC = () => {
   // Handle filter change from FilterBar
   const handleFilterChange = (filtered: typeof products) => {
     setFilteredProducts(filtered);
-  };
-
-  // Update search query
-  const handleSearchChange = (query: string) => {
-    setSearchQuery(query);
   };
 
   return (
