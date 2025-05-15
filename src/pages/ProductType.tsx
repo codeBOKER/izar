@@ -7,6 +7,7 @@ import { productTypes, getProductsByType } from '../data/products';
 import ProductTypeSection from '../components/ProductTypeSection';
 import { Button } from "@/components/ui/button";
 import { FilterBar } from '../components/FilterBar';
+import { Card } from "@/components/ui/card";
 
 const ProductType: React.FC = () => {
   const { typeId } = useParams<{ typeId: string }>();
@@ -69,6 +70,11 @@ const ProductType: React.FC = () => {
     ? '/assets/underwear-category.jpg' 
     : '/assets/outwear-category.jpg';
 
+  // Define available sizes based on category
+  const availableSizes = typeId === 'underwear' 
+    ? ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL']
+    : ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -91,6 +97,21 @@ const ProductType: React.FC = () => {
         </div>
 
         <div className="container mx-auto px-4 py-8">
+          {/* Available Sizes Card */}
+          <Card className="mb-6 p-4 bg-white shadow-sm">
+            <h3 className="text-lg font-medium mb-3">المقاسات المتاحة:</h3>
+            <div className="flex flex-wrap gap-2">
+              {availableSizes.map((size) => (
+                <span
+                  key={size}
+                  className="px-3 py-1.5 bg-softgray text-darkblue rounded-md text-sm font-medium"
+                >
+                  {size}
+                </span>
+              ))}
+            </div>
+          </Card>
+          
           {/* Filter Bar */}
           <FilterBar 
             products={products} 

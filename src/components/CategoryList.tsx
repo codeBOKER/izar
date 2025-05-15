@@ -77,9 +77,9 @@ const CategoryList: React.FC = () => {
                   {/* Always show products in a row, even on mobile */}
                   <div className="grid grid-cols-2 gap-3">
                     {categoryProducts.map((product) => (
-                      <Link to={`/product/${product.id}`} key={product.id}>
+                      <div key={product.id}>
                         <ProductCard product={product} />
-                      </Link>
+                      </div>
                     ))}
                   </div>
                 </CardContent>

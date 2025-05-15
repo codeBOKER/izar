@@ -57,20 +57,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             ))}
           </div>
         </div>
-        
-        <div>
-          <div className="text-xs font-medium mb-1">المقاسات المتاحة:</div>
-          <div className="flex flex-wrap gap-1">
-            {product.sizes.map((size) => (
-              <span
-                key={size}
-                className="inline-block border border-gray-200 rounded-md px-1.5 py-0.5 text-xs text-gray-600 bg-gray-50"
-              >
-                {size}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
