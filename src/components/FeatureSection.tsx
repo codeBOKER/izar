@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card } from "@/components/ui/card";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 type FeatureProps = {
   title: string;
@@ -11,24 +11,21 @@ type FeatureProps = {
 
 const Feature: React.FC<FeatureProps> = ({ title, description, icon }) => {
   return (
-    <Card className="bg-white rounded-3xl shadow-md overflow-hidden border-0">
-      <div className="p-4">
-        <AspectRatio ratio={1/1} className="bg-gray-100 rounded-2xl mb-4">
-          <div className="flex items-center justify-center h-full w-full">
-            <img src={icon} alt={title} className="h-16 w-16 object-contain" />
-          </div>
-        </AspectRatio>
-        
-        <h3 className="text-lg font-bold text-darkblue mb-1">{title}</h3>
-        <p className="text-gray-600 text-sm">{description}</p>
-        
-        <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
-          <div className="flex space-x-2">
-            <span className="text-red font-bold">{title}</span>
-          </div>
+    <div className="flex flex-col items-center">
+      {/* Circle image above the card */}
+      <Avatar className="h-20 w-20 mb-4 border-4 border-white shadow-md z-10">
+        <AvatarImage src={icon} alt={title} />
+        <AvatarFallback className="bg-gray-100">{title.charAt(0)}</AvatarFallback>
+      </Avatar>
+      
+      {/* Card with text */}
+      <Card className="bg-white rounded-xl shadow-md overflow-hidden border-0 w-full mt-[-10px] pt-4">
+        <div className="p-6 text-center">
+          <h3 className="text-lg font-bold text-darkblue mb-3">{title}</h3>
+          <p className="text-gray-600 text-sm">{description}</p>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 
@@ -66,7 +63,7 @@ const FeatureSection: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <Feature key={index} {...feature} />
           ))}
