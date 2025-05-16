@@ -7,35 +7,74 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselPrevious,
+  CarouselNext
 } from "@/components/ui/carousel";
 
 const Hero: React.FC = () => {
-  const shapeRef = useRef<HTMLDivElement>(null);
+  const mainShapeRef = useRef<HTMLDivElement>(null);
+  const productImageRef = useRef<HTMLDivElement>(null);
+  const smallShape1Ref = useRef<HTMLDivElement>(null);
+  const smallShape2Ref = useRef<HTMLDivElement>(null);
+  const smallShape3Ref = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    // Animation for the shape rotation
-    const interval = setInterval(() => {
-      if (shapeRef.current) {
+    // Animation for the main shape rotation
+    const mainShapeInterval = setInterval(() => {
+      if (mainShapeRef.current) {
         // Add a gentle rotation animation
-        shapeRef.current.style.transform = `rotate(${Math.random() * 5 - 2.5}deg)`;
+        mainShapeRef.current.style.transform = `rotate(${Math.random() * 4 - 2}deg)`;
       }
-    }, 2000);
+    }, 1000); // Rotate every second
 
-    return () => clearInterval(interval);
+    // Animation for the product image with slight delay
+    const productImageInterval = setInterval(() => {
+      if (productImageRef.current) {
+        // Add a gentle floating animation with slight delay
+        setTimeout(() => {
+          productImageRef.current!.style.transform = `translateY(${Math.random() * 5 - 2.5}px) rotate(${Math.random() * 3 - 1.5}deg)`;
+        }, 200);
+      }
+    }, 1000);
+
+    // Animation for the small shapes with different delays
+    const smallShapesInterval = setInterval(() => {
+      if (smallShape1Ref.current) {
+        setTimeout(() => {
+          smallShape1Ref.current!.style.transform = `translateY(${Math.random() * 8 - 4}px)`;
+        }, 150);
+      }
+      if (smallShape2Ref.current) {
+        setTimeout(() => {
+          smallShape2Ref.current!.style.transform = `translateX(${Math.random() * 8 - 4}px)`;
+        }, 300);
+      }
+      if (smallShape3Ref.current) {
+        setTimeout(() => {
+          smallShape3Ref.current!.style.transform = `translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px)`;
+        }, 450);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(mainShapeInterval);
+      clearInterval(productImageInterval);
+      clearInterval(smallShapesInterval);
+    };
   }, []);
 
   return (
-    <div className="relative overflow-hidden bg-white">
-      {/* Animated background shape */}
+    <div className="relative overflow-hidden bg-white py-12">
+      {/* Main animated background shape in upper left corner */}
       <div 
-        ref={shapeRef}
-        className="absolute -top-16 -right-16 md:-top-32 md:-right-32 w-96 h-96 md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-r from-red-100 to-red/20 transition-transform duration-1000"
+        ref={mainShapeRef}
+        className="absolute -top-48 -left-48 w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-[40%] bg-gradient-to-r from-red/20 to-red/5 transition-transform duration-1000"
       />
 
-      <div className="container mx-auto px-4 py-16 md:py-24">
+      <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Text content */}
-          <div className="z-10 text-center md:text-right order-2 md:order-1">
+          <div className="z-10 text-center md:text-right">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-darkblue mb-6">
               ملابس داخلية مريحة<br />
               <span className="text-red">مع قمصان انيقة</span>
@@ -57,12 +96,15 @@ const Hero: React.FC = () => {
             </div>
           </div>
           
-          {/* Image showcase */}
-          <div className="relative z-10 order-1 md:order-2">
-            <div className="bg-white rounded-2xl shadow-lg p-6 transform transition-all duration-500 hover:rotate-1">
+          {/* Product showcase with animation */}
+          <div className="relative z-10">
+            <div 
+              ref={productImageRef}
+              className="relative bg-white rounded-2xl shadow-lg p-6 transition-all duration-500 ease-in-out"
+            >
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-2xl font-bold text-darkblue">منتجاتنا المميزة</h3>
-                <span className="text-red/80 text-sm">NO. 01</span>
+                <span className="text-red text-sm font-medium">NO. 01</span>
               </div>
               
               <Carousel className="w-full">
@@ -71,14 +113,27 @@ const Hero: React.FC = () => {
                     <AspectRatio ratio={1/1} className="bg-gray-50 rounded-lg overflow-hidden">
                       <div className="w-full h-full flex items-center justify-center">
                         <img 
-                          src="/assets/weave.webp" 
+                          src="/assets/half-sleeve-khonagi-blue.png"
                           alt="منتج مميز" 
-                          className="object-contain max-h-[300px] hover:scale-105 transition-transform duration-500"
+                          className="object-contain h-[280px] hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    </AspectRatio>
+                  </CarouselItem>
+                  <CarouselItem>
+                    <AspectRatio ratio={1/1} className="bg-gray-50 rounded-lg overflow-hidden">
+                      <div className="w-full h-full flex items-center justify-center">
+                        <img 
+                          src="/assets/half-sleeve-khonagi-white.png" 
+                          alt="منتج مميز آخر" 
+                          className="object-contain h-[280px] hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                     </AspectRatio>
                   </CarouselItem>
                 </CarouselContent>
+                <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
+                <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
               </Carousel>
               
               <div className="mt-4 flex justify-between items-center">
@@ -96,10 +151,19 @@ const Hero: React.FC = () => {
               </div>
             </div>
             
-            {/* Floating elements */}
-            <div className="absolute -bottom-5 -right-5 w-20 h-20 rounded-full bg-beige animate-pulse" />
-            <div className="absolute -top-10 right-10 w-6 h-6 rounded-full bg-red/20 animate-bounce" style={{animationDelay: '0.3s'}} />
-            <div className="absolute top-12 -left-4 w-8 h-8 rounded-full bg-red/10 animate-bounce" style={{animationDelay: '0.7s'}} />
+            {/* Floating animated elements */}
+            <div 
+              ref={smallShape1Ref}
+              className="absolute -top-10 left-10 w-12 h-12 rounded-full bg-beige transition-transform duration-1000 ease-in-out"
+            />
+            <div 
+              ref={smallShape2Ref}
+              className="absolute top-1/2 -right-6 w-8 h-8 rounded-full bg-red/20 transition-transform duration-1000 ease-in-out"
+            />
+            <div 
+              ref={smallShape3Ref}
+              className="absolute -bottom-4 left-1/4 w-10 h-10 rounded-full bg-red/10 transition-transform duration-1000 ease-in-out"
+            />
           </div>
         </div>
       </div>
