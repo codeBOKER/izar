@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '../hooks/use-mobile';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import { Check, Shield, Award } from "lucide-react";
 
 interface Brand {
   id: number;
@@ -59,9 +61,12 @@ const BusinessPartners: React.FC = () => {
           ))}
         </div>
         
-        {/* Values section with simpler design */}
+        {/* Values section with expanded advantages */}
         <div className="mt-16 bg-gradient-to-br from-white to-beige/20 rounded-xl shadow-md p-8 max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h3 className="text-xl font-bold text-darkblue mb-6 text-center">مزايا منتجاتنا</h3>
+          
+          {/* First row of advantages */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div className="text-center">
               <div className="mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-darkblue" viewBox="0 0 20 20" fill="currentColor">
@@ -69,6 +74,7 @@ const BusinessPartners: React.FC = () => {
                 </svg>
               </div>
               <h4 className="text-lg font-semibold text-darkblue mb-2">جودة مضمونة</h4>
+              <p className="text-gray-600 text-sm">أقمشة مختارة بعناية وإنتاج يخضع للرقابة المستمرة</p>
             </div>
             
             <div className="text-center">
@@ -78,6 +84,7 @@ const BusinessPartners: React.FC = () => {
                 </svg>
               </div>
               <h4 className="text-lg font-semibold text-darkblue mb-2">تصاميم عصرية</h4>
+              <p className="text-gray-600 text-sm">تواكب أحدث صيحات الموضة وتناسب الذوق العربي الأصيل</p>
             </div>
             
             <div className="text-center">
@@ -88,6 +95,34 @@ const BusinessPartners: React.FC = () => {
                 </svg>
               </div>
               <h4 className="text-lg font-semibold text-darkblue mb-2">سعر مناسب</h4>
+              <p className="text-gray-600 text-sm">أفضل سعر في السوق مع الحفاظ على جودة المنتج</p>
+            </div>
+          </div>
+          
+          {/* Second row of advantages */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
+                <Check className="h-8 w-8 text-darkblue" />
+              </div>
+              <h4 className="text-lg font-semibold text-darkblue mb-2">خدمة سريعة</h4>
+              <p className="text-gray-600 text-sm">توصيل سريع وفعال في جميع أنحاء المملكة</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
+                <Shield className="h-8 w-8 text-darkblue" />
+              </div>
+              <h4 className="text-lg font-semibold text-darkblue mb-2">ضمان لمنتجاتنا</h4>
+              <p className="text-gray-600 text-sm">ضمان استبدال لكل المنتجات مع دعم فني متكامل</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
+                <Award className="h-8 w-8 text-darkblue" />
+              </div>
+              <h4 className="text-lg font-semibold text-darkblue mb-2">تصدير عالمي</h4>
+              <p className="text-gray-600 text-sm">نصدر منتجاتنا لأكثر من ٢٠ دولة حول العالم</p>
             </div>
           </div>
         </div>
