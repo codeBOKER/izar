@@ -65,7 +65,7 @@ const BusinessPartners: React.FC = () => {
         <div className="mt-16 bg-gradient-to-br from-white to-beige/20 rounded-xl shadow-md p-8 max-w-4xl mx-auto">
           <h3 className="text-xl font-bold text-darkblue mb-6 text-center">مزايا منتجاتنا</h3>
           
-          {/* First row of advantages - modified to display 2 per row on mobile */}
+          {/* First row of advantages - ensure we have even distribution */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-8">
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
@@ -99,7 +99,7 @@ const BusinessPartners: React.FC = () => {
             </div>
           </div>
           
-          {/* Second row of advantages - also modified for mobile */}
+          {/* Second row of advantages - ensure we have even distribution */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">

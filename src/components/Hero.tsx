@@ -30,13 +30,11 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className="md:w-1/2 w-full relative">
-            <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 w-full rounded-xl overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <img
-                    src="/logo.png"
-                    className="object-contain h-full w-full max-w-xs md:max-w-full mx-auto"            
-                />
-              </div>
+            <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 w-full rounded-xl overflow-hidden flex items-center justify-center">
+              <img
+                  src="/logo.png"
+                  className="object-contain h-full max-h-64 w-full max-w-sm sm:max-w-md md:max-w-full mx-auto"            
+              />
             </div>
           </div>
         </div>
