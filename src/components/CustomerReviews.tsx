@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
@@ -74,34 +73,32 @@ const CustomerReviews: React.FC = () => {
           </p>
         </div>
         
-        <ScrollArea className="w-full">
-          <div className="flex justify-center py-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl">
-              {reviews.map((review) => (
-                <div 
-                  key={review.id} 
-                  className="flex flex-col items-center text-center p-6 bg-softgray rounded-lg border border-gray-100"
-                >
-                  <Avatar className="w-24 h-24 mb-4">
-                    <AvatarImage src={review.image} alt={review.customerName} />
-                    <AvatarFallback className="bg-red-light text-red text-2xl">
-                      {review.customerName.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-                  
-                  <h3 className="font-bold text-lg mb-1">{review.customerName}</h3>
-                  <p className="text-gray-500 text-sm mb-3">{review.role}</p>
-                  
-                  <div className="mb-4">
-                    <RatingStars rating={review.rating} />
-                  </div>
-                  
-                  <p className="text-gray-700">{review.comment}</p>
+        <div className="w-full py-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {reviews.map((review) => (
+              <div 
+                key={review.id} 
+                className="flex flex-col items-center text-center p-4 md:p-6 bg-softgray rounded-lg border border-gray-100"
+              >
+                <Avatar className="w-16 md:w-24 h-16 md:h-24 mb-4">
+                  <AvatarImage src={review.image} alt={review.customerName} />
+                  <AvatarFallback className="bg-red-light text-red text-2xl">
+                    {review.customerName.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                
+                <h3 className="font-bold text-lg mb-1">{review.customerName}</h3>
+                <p className="text-gray-500 text-sm mb-3">{review.role}</p>
+                
+                <div className="mb-4">
+                  <RatingStars rating={review.rating} />
                 </div>
-              ))}
-            </div>
+                
+                <p className="text-gray-700 text-sm md:text-base">{review.comment}</p>
+              </div>
+            ))}
           </div>
-        </ScrollArea>
+        </div>
       </div>
     </div>
   );
