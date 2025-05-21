@@ -1,8 +1,10 @@
 
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, StarHalf } from "lucide-react";
+import { Star } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Review {
   id: number;
@@ -27,7 +29,7 @@ const reviews: Review[] = [
     customerName: "خالد سعيد",
     role: "صاحب متجر",
     image: "https://placehold.co/400x400/f7e6e8/af2734?text=خ",
-    rating: 4.5,
+    rating: 5,
     comment: "أفضل شركة للملابس الداخلية الرجالية، الأقمشة نوعيتها ممتازة والتصاميم عصرية ومريحة."
   },
   {
@@ -43,78 +45,63 @@ const reviews: Review[] = [
     customerName: "محمد ناصر",
     role: "مستورد",
     image: "https://placehold.co/400x400/f7e6e8/af2734?text=م",
-    rating: 4.5,
+    rating: 5,
     comment: "منتجات ذات جودة عالية وتلبي احتياجات السوق بشكل ممتاز. أنصح بها بشدة لكل تجار الجملة."
   }
 ];
 
 const RatingStars: React.FC<{ rating: number }> = ({ rating }) => {
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating % 1 !== 0;
-  
   return (
     <div className="flex">
-      {[...Array(fullStars)].map((_, i) => (
-        <Star key={i} className="w-4 h-4 fill-red text-red" />
+      {[...Array(5)].map((_, i) => (
+        <Star 
+          key={i} 
+          className={`w-4 h-4 ${i < rating ? "fill-red text-red" : "text-gray-300"}`} 
+        />
       ))}
-      {hasHalfStar && <StarHalf className="w-4 h-4 fill-red text-red" />}
     </div>
   );
 };
 
 const CustomerReviews: React.FC = () => {
   return (
-    <div className="bg-softgray py-16">
+    <div className="bg-white py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-darkblue mb-2">آراء العملاء</h2>
-          <div className="w-24 h-1 bg-red-light mx-auto mb-6"></div>
+          <h2 className="text-3xl font-bold text-darkblue mb-4">نهتم بتجربة عملائنا</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            تعرف على آراء عملائنا وشركاء أعمالنا في منتجات إزار وخدمات الشركة
+            استمع إلى آراء عملائنا المميزين وتجربتهم مع منتجات إزار
           </p>
         </div>
         
-        <Carousel
-          className="w-full max-w-5xl mx-auto"
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-        >
-          <CarouselContent className="px-4">
-            {reviews.map((review) => (
-              <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/2">
-                <div className="p-1">
-                  <Card className="border border-red/10 bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <CardContent className="p-6">
-                      <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                          <img 
-                            src={review.image} 
-                            alt={review.customerName} 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="font-semibold text-darkblue">{review.customerName}</div>
-                          <div className="text-sm text-gray-500">{review.role}</div>
-                        </div>
-                      </div>
-                      <div className="mb-3">
-                        <RatingStars rating={review.rating} />
-                      </div>
-                      <p className="text-gray-700 text-right">{review.comment}</p>
-                    </CardContent>
-                  </Card>
+        <ScrollArea className="w-full">
+          <div className="flex justify-center py-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl">
+              {reviews.map((review) => (
+                <div 
+                  key={review.id} 
+                  className="flex flex-col items-center text-center p-6 bg-softgray rounded-lg border border-gray-100"
+                >
+                  <Avatar className="w-24 h-24 mb-4">
+                    <AvatarImage src={review.image} alt={review.customerName} />
+                    <AvatarFallback className="bg-red-light text-red text-2xl">
+                      {review.customerName.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  
+                  <h3 className="font-bold text-lg mb-1">{review.customerName}</h3>
+                  <p className="text-gray-500 text-sm mb-3">{review.role}</p>
+                  
+                  <div className="mb-4">
+                    <RatingStars rating={review.rating} />
+                  </div>
+                  
+                  <p className="text-gray-700">{review.comment}</p>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="flex justify-center mt-8 gap-2">
-            <CarouselPrevious className="static transform-none mx-2" />
-            <CarouselNext className="static transform-none mx-2" />
+              ))}
+            </div>
           </div>
-        </Carousel>
+        </ScrollArea>
       </div>
     </div>
   );

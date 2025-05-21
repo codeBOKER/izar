@@ -42,7 +42,7 @@ const Index: React.FC = () => {
             <p className="text-gray-700 mb-8 max-w-2xl mx-auto">
               نقدم لشركاء أعمالنا التجاريين باقة متكاملة من المزايا التنافسية، تشمل جودة المنتج وأسعار الجملة المميزة مع خدمات لوجستية متفوقة.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="text-darkblue text-4xl font-bold mb-2">١٥٪</div>
                 <div className="text-gray-700">خصومات كميات للموزعين</div>
@@ -54,6 +54,10 @@ const Index: React.FC = () => {
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="text-darkblue text-4xl font-bold mb-2">١٠٠+</div>
                 <div className="text-gray-700">شريك أعمال استراتيجي</div>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="text-darkblue text-4xl font-bold mb-2">٢٤/٧</div>
+                <div className="text-gray-700">دعم فني وخدمة عملاء</div>
               </div>
             </div>
           </div>
