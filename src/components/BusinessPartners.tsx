@@ -42,7 +42,7 @@ const BusinessPartners: React.FC = () => {
         </div>
         
         {/* Modern brand showcase grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-9xl mx-auto">
           {brands.map((brand) => (             
               <div
                 className="relative p-0.5 rounded-lg shadow-lg bg-cover bg-center rounded-xl overflow-hidden group"
