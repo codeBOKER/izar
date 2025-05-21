@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '../hooks/use-mobile';
@@ -43,16 +42,16 @@ const BusinessPartners: React.FC = () => {
         </div>
         
         {/* Modern brand showcase grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
           {brands.map((brand) => (             
               <div
                 className="relative p-0.5 rounded-lg shadow-lg bg-cover bg-center rounded-xl overflow-hidden group"
                 style={{ backgroundImage: `url(${brand.bgImage})` }}
               >
                 {/* Dark overlay with blur for background filter */}
-                <div className="absolute inset-0 bg-white/10 backdrop-blur-md z-0 group-hover:backdrop-blur-0 transition-all duration-300" /> 
+                <div className="absolute inset-0 bg-white/10 backdrop-blur-md z-0 group-hover:backdrop-blur-0 transition-all duration-300" />
                  <AspectRatio ratio={21/9} className="relative overflow-hidden rounded-lg z-10">
-                <h1 className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-white transition-all duration-300 group-hover:text-5xl">  
+                <h1 className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-white transition-all duration-300 group-hover:text-5xl">
                     {brand.name}
                 </h1>
                 </AspectRatio>
@@ -62,11 +61,11 @@ const BusinessPartners: React.FC = () => {
         </div>
         
         {/* Values section with expanded advantages */}
-        <div className="mt-16 bg-gradient-to-br from-white to-beige/20 rounded-xl shadow-md p-8 max-w-4xl mx-auto">
+        <div className="mt-16 bg-gradient-to-br from-white to-beige/20 rounded-xl shadow-md p-8 mx-auto">
           <h3 className="text-xl font-bold text-darkblue mb-6 text-center">مزايا منتجاتنا</h3>
           
-          {/* First row of advantages - ensure we have even distribution */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-8">
+          {/* Advantages section - always two per row on mobile, three per row on desktop, full width on desktop */}
+          <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen max-w-none grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 px-4 md:px-16">
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-8 sm:w-8 text-darkblue" viewBox="0 0 20 20" fill="currentColor">
@@ -76,7 +75,7 @@ const BusinessPartners: React.FC = () => {
               <h4 className="text-base sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">جودة مضمونة</h4>
               <p className="text-xs sm:text-sm text-gray-600">أقمشة مختارة بعناية وإنتاج يخضع للرقابة المستمرة</p>
             </div>
-            
+            {/* ...existing advantage cards... */}
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-8 sm:w-8 text-darkblue" viewBox="0 0 20 20" fill="currentColor">
@@ -86,7 +85,6 @@ const BusinessPartners: React.FC = () => {
               <h4 className="text-base sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">تصاميم عصرية</h4>
               <p className="text-xs sm:text-sm text-gray-600">تواكب أحدث صيحات الموضة وتناسب الذوق العربي الأصيل</p>
             </div>
-            
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-8 sm:w-8 text-darkblue" viewBox="0 0 20 20" fill="currentColor">
@@ -97,32 +95,26 @@ const BusinessPartners: React.FC = () => {
               <h4 className="text-base sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">سعر مناسب</h4>
               <p className="text-xs sm:text-sm text-gray-600">أفضل سعر في السوق مع الحفاظ على جودة المنتج</p>
             </div>
-          </div>
-          
-          {/* Second row of advantages - ensure we have even distribution */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
                 <Check className="h-6 w-6 sm:h-8 sm:w-8 text-darkblue" />
               </div>
               <h4 className="text-base sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">خدمة سريعة</h4>
-              <p className="text-xs sm:text-sm text-gray-600">توصيل سريع وفعال في جميع أنحاء المملكة</p>
+              <p className="text-xs sm:text-sm text-gray-600">توصيل سريع وفعال لجميع المناطق</p>
             </div>
-            
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
                 <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-darkblue" />
               </div>
-              <h4 className="text-base sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">ضمان لمنتجاتنا</h4>
-              <p className="text-xs sm:text-sm text-gray-600">ضمان استبدال لكل المنتجات مع دعم فني متكامل</p>
+              <h4 className="text-base sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">الدعم الفني</h4>
+              <p className="text-xs sm:text-sm text-gray-600">دعم فني لجميع المنتجات</p>
             </div>
-            
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
                 <Award className="h-6 w-6 sm:h-8 sm:w-8 text-darkblue" />
               </div>
               <h4 className="text-base sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">تصدير عالمي</h4>
-              <p className="text-xs sm:text-sm text-gray-600">نصدر منتجاتنا لأكثر من ٢٠ دولة حول العالم</p>
+              <p className="text-xs sm:text-sm text-gray-600">نصدر منتاجاتنا لدول المنطقة</p>
             </div>
           </div>
         </div>

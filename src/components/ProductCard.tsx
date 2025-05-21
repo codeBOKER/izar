@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Product, ProductColor } from '../data/products';
 
@@ -32,8 +31,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
       <div className="p-3">
         <h3 className="text-sm font-bold text-darkblue mb-1 line-clamp-1">{product.name}</h3>
-        <p className="text-xs text-gray-500 mb-2">{product.typeArabic}</p>
-        
         <div className="mb-2">
           <div className="text-xs font-medium mb-1">الألوان المتاحة:</div>
           <div className="flex space-x-1.5 space-x-reverse">

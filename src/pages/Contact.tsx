@@ -31,7 +31,8 @@ const Contact: React.FC = () => {
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-medium text-darkblue mb-2">العنوان</h3>
-                    <p className="text-gray-600">تريم، حضرموت، اليمن</p>
+                    <p className="text-gray-600">المركز الرئيسي: تركيا – إسطنبول</p>
+                    <p className="text-gray-600">فرع اليمن: حضرموت تريم</p>
                   </div>
                   
                   <div>
@@ -42,8 +43,8 @@ const Contact: React.FC = () => {
                   
                   <div>
                     <h3 className="text-lg font-medium text-darkblue mb-2">الهاتف</h3>
-                    <p className="text-gray-600">+96777 777777</p>
-                    <p className="text-gray-600">+96777 777778</p>
+                    <p className="text-gray-600"><span dir="ltr" style={{ unicodeBidi: "isolate" }}>+967 777 777777</span></p>
+                    <p className="text-gray-600"><span dir="ltr" style={{ unicodeBidi: "isolate" }}>+967 777 777777</span></p>
                   </div>
                   
                   <div>

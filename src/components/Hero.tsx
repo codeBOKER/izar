@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
@@ -8,7 +7,15 @@ const Hero: React.FC = () => {
     <div className="relative bg-gradient-to-r from-slate-50 to-softgray">
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 text-center md:text-right mb-10 md:mb-0">
+          <div className="md:w-1/2 w-full order-1 md:order-2 relative">
+            <div className="relative h-90 sm:h-72 md:h-80 lg:h-96 w-full rounded-xl overflow-hidden flex items-center justify-center mt-0 md:mt-0">
+              <img
+                  src="/logo.png"
+                  className="object-contain h-full max-h-90 w-full max-w-sm sm:max-w-md md:max-w-full mx-auto"            
+              />
+            </div>
+          </div>
+          <div className="md:w-1/2 text-center md:text-right mb-10 md:mb-0 order-2 md:order-1">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-darkblue mb-6">
               ملابس داخلية مريحة<br />
               <span className="text-red">مع قمصان انيقة</span>
@@ -27,14 +34,6 @@ const Hero: React.FC = () => {
                   استعراض المنتجات
                 </Button>
               </Link>
-            </div>
-          </div>
-          <div className="md:w-1/2 w-full relative">
-            <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 w-full rounded-xl overflow-hidden flex items-center justify-center">
-              <img
-                  src="/logo.png"
-                  className="object-contain h-full max-h-64 w-full max-w-sm sm:max-w-md md:max-w-full mx-auto"            
-              />
             </div>
           </div>
         </div>

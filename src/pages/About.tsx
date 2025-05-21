@@ -31,41 +31,27 @@ const About: React.FC = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-navy mb-4">رؤيتنا</h2>
               <p className="text-gray-700">
-                نسعى لأن نكون الشركة الرائدة في مجال صناعة الملابس الرجالية في الشرق الأوسط،
-                وأن نقدم منتجات ذات جودة عالمية تلبي احتياجات وتطلعات عملائنا.
+                صناعة الملابس ذات الجودة العالية مع الاهتمام بأدق التفاصيل في الخياطة واختيار الأقمشة الأفضل 
               </p>
             </div>
             
             <div className="mb-12">
-              <h2 className="text-2xl font-bold text-navy mb-4">مهمتنا</h2>
+              <h2 className="text-2xl font-bold text-navy mb-4">الية التعامل</h2>
               <p className="text-gray-700">
-                تقديم منتجات عالية الجودة ومريحة وأنيقة لعملائنا، مع الحفاظ على أعلى معايير الجودة والاستدامة في كل مراحل التصنيع.
-                نهتم بأدق التفاصيل ونلتزم بالابتكار المستمر لتلبية احتياجات عملائنا المتغيرة.
+                نستلم طلبات التصنيع من قبل الشركات وتجار الجملة لتصنيعها ومن ثم تسليمها في الوقت المحدد 
+                التوزيع جملة الجملة لدى فرع اليمن
+              </p>
+            </div>
+
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-navy mb-4">لماذا ازار؟</h2>
+              <p className="text-gray-700">
+                تعد الشركة التركية اليمنية الأولى التي تصنع القمصان في تركيا وتوزعها في اليمن 
+                عند اختيار الأقمشة نهتم بجودتها وفخامتها يخيطها أفضل الخياطين ذوي الخبرة والمهارة ونهتم بأن تكون منتجاتنا ذا جودة عالية وأن تكون مريحة للعملاء وتمتاز بلأناقة والفخامة
               </p>
             </div>
             
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-navy mb-4">لماذا نحن</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                  <div className="text-4xl font-bold text-darkblue mb-2">٣٠+</div>
-                  <div className="text-lg font-medium text-navy mb-2">فرعا تجاريا</div>
-                  <p className="text-gray-600 text-sm">انتشار واسع لخدمة العملاء</p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                  <div className="text-4xl font-bold text-darkblue mb-2">١٠٠٪</div>
-                  <div className="text-lg font-medium text-navy mb-2">قطن مصري</div>
-                  <p className="text-gray-600 text-sm">نستخدم أفضل أنواع القطن المصري في تصنيع منتجاتنا</p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                  <div className="text-4xl font-bold text-darkblue mb-2">١٠٠٠٠+</div>
-                  <div className="text-lg font-medium text-navy mb-2">عميل راضي</div>
-                  <p className="text-gray-600 text-sm">لدينا قاعدة كبيرة من العملاء الراضين عن جودة منتجاتنا</p>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </main>

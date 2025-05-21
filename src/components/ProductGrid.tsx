@@ -10,7 +10,7 @@ interface ProductGridProps {
 
 const ProductGrid: React.FC<ProductGridProps> = ({ products, title }) => {
   return (
-    <div className="bg-red/10 py-8 px-4 sm:px-0">
+    <div className="py-8 px-4 sm:px-0">
       {title && (
         <h2 className="text-2xl font-bold text-darkblue mb-6">{title}</h2>
       )}

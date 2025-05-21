@@ -33,7 +33,7 @@ const Products: React.FC = () => {
         </div>
 
         <div className="container mx-auto px-4">
-          <div className="sticky top-20 z-40 bg-white py-4 mb-6 border-b">
+          <div className="top-20 z-40 bg-white py-4 mb-6 border-b">
             <FilterBar products={shuffledProducts} onFilterChange={handleFilterChange} />
           </div>
 
