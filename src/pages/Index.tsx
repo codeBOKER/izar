@@ -6,6 +6,7 @@ import Hero from '../components/Hero';
 import CategoryList from '../components/CategoryList';
 import ProductGrid from '../components/ProductGrid';
 import BusinessPartners from '../components/BusinessPartners';
+import CustomerReviews from '../components/CustomerReviews';
 import { products } from '../data/products';
 
 const Index: React.FC = () => {
@@ -30,6 +31,8 @@ const Index: React.FC = () => {
           
           <ProductGrid products={featuredProducts} />
         </div>
+        
+        <CustomerReviews />
         
         <BusinessPartners />
         
