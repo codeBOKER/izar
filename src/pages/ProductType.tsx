@@ -113,7 +113,7 @@ const ProductType: React.FC = () => {
           </Card>
           
           {/* Filter bar - positioned at the top */}
-          <div className="sticky top-24 z-40 bg-white py-4 mb-6 border-b">
+          <div className="top-24 z-40 bg-white py-4 mb-6 border-b">
             <FilterBar 
               products={products} 
               onFilterChange={setFilteredProducts}
