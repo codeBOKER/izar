@@ -77,14 +77,20 @@ const ProductType: React.FC = () => {
     ? ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL']
     : ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'];
 
-  // Cotton advantages to display in the category page
-  const cottonAdvantages = [
-    'قطن %100',
-    'قطن معطر',
-    'قطن ذا وزن أعلى',
-    'القطن المصري',
-    'تم تصنيعه بأعلى المواصفات التركية'
-  ];
+  // Define advantages based on category
+  const categoryAdvantages = typeId === 'underwear' 
+    ? [
+        'قطن %100',
+        'قطن معطر',
+        'قطن ذا وزن أعلى',
+        'القطن المصري',
+        'تم تصنيعه بأعلى المواصفات التركية'
+      ]
+    : [
+        'تنوع الأقمشة',
+        'تنوع التصاميم والموديلات للقمصان',
+        'أقمشة ذا جودة عالية'
+      ];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -104,9 +110,9 @@ const ProductType: React.FC = () => {
                 {type.description}
               </p>
               
-              {/* Cotton Advantages */}
+              {/* Category Advantages */}
               <div className="mt-4 flex flex-wrap gap-2">
-                {cottonAdvantages.map((advantage, index) => (
+                {categoryAdvantages.map((advantage, index) => (
                   <Badge 
                     key={index} 
                     className="bg-white/20 text-white backdrop-blur-sm flex items-center gap-1.5 py-1.5 px-3"

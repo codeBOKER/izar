@@ -13,13 +13,25 @@ const categories = [{
   name: 'الملابس الداخلية',
   image: '/assets/underwear-category.jpg',
   description: 'تشكيلة متنوعة من المنتجات القطنية عالية الجودة للموزعين',
-  sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', '4XL', '5XL', '6XL']
+  sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', '4XL', '5XL', '6XL'],
+  advantages: [
+    'قطن %100',
+    'قطن معطر',
+    'قطن ذا وزن أعلى',
+    'القطن المصري',
+    'تم تصنيعه بأعلى المواصفات التركية'
+  ]
 }, {
   id: 'outwear',
   name: 'الملابس الخارجية',
   image: '/assets/outwear-category.jpg',
   description: 'منتجات ملبوسات خارجية بمواصفات عالمية وأسعار تنافسية',
-  sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', '4XL', '5XL']
+  sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', '4XL', '5XL'],
+  advantages: [
+    'تنوع الأقمشة',
+    'تنوع التصاميم والموديلات للقمصان',
+    'أقمشة ذا جودة عالية'
+  ]
 }];
 
 // Helper function to get sample products from each category
@@ -32,15 +44,6 @@ const getCategoryProducts = (categoryId: string, count: number = 2) => {
   const relevantTypes = categoryMap[categoryId] || [];
   return products.filter(product => relevantTypes.includes(product.type)).slice(0, count);
 };
-
-// Cotton advantages
-const cottonAdvantages = [
-  'قطن %100',
-  'قطن معطر',
-  'قطن ذا وزن أعلى',
-  'القطن المصري',
-  'تم تصنيعه بأعلى المواصفات التركية'
-];
 
 const CategoryList: React.FC = () => {
   return <div className="py-16">
@@ -69,9 +72,9 @@ const CategoryList: React.FC = () => {
                         </div>
                       </div>
                       
-                      {/* Cotton Advantages */}
+                      {/* Category Advantages */}
                       <div className="mt-3 flex flex-wrap gap-2">
-                        {cottonAdvantages.map((advantage, index) => (
+                        {category.advantages.map((advantage, index) => (
                           <Badge 
                             key={index} 
                             className="bg-white/20 text-white backdrop-blur-sm flex items-center gap-1.5 py-1 px-2.5 text-xs"
