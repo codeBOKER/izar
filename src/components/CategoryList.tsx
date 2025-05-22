@@ -1,9 +1,13 @@
+
 import React from 'react';
 import { Card, CardContent } from "./ui/card";
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { products } from '../data/products';
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Check } from "lucide-react";
+
 const categories = [{
   id: 'underwear',
   name: 'الملابس الداخلية',
@@ -28,6 +32,16 @@ const getCategoryProducts = (categoryId: string, count: number = 2) => {
   const relevantTypes = categoryMap[categoryId] || [];
   return products.filter(product => relevantTypes.includes(product.type)).slice(0, count);
 };
+
+// Cotton advantages
+const cottonAdvantages = [
+  'قطن %100',
+  'قطن معطر',
+  'قطن ذا وزن أعلى',
+  'القطن المصري',
+  'تم تصنيعه بأعلى المواصفات التركية'
+];
+
 const CategoryList: React.FC = () => {
   return <div className="py-16">
       <div className="container mx-auto px-4">
@@ -54,6 +68,19 @@ const CategoryList: React.FC = () => {
                             </span>)}
                         </div>
                       </div>
+                      
+                      {/* Cotton Advantages */}
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {cottonAdvantages.map((advantage, index) => (
+                          <Badge 
+                            key={index} 
+                            className="bg-white/20 text-white backdrop-blur-sm flex items-center gap-1.5 py-1 px-2.5 text-xs"
+                          >
+                            <Check className="w-3 h-3" />
+                            <span>{advantage}</span>
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -78,4 +105,5 @@ const CategoryList: React.FC = () => {
       </div>
     </div>;
 };
+
 export default CategoryList;

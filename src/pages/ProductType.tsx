@@ -8,6 +8,8 @@ import ProductTypeSection from '../components/ProductTypeSection';
 import { Button } from "@/components/ui/button";
 import { FilterBar } from '../components/FilterBar';
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Check } from "lucide-react";
 
 const ProductType: React.FC = () => {
   const { typeId } = useParams<{ typeId: string }>();
@@ -75,6 +77,15 @@ const ProductType: React.FC = () => {
     ? ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL']
     : ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'];
 
+  // Cotton advantages to display in the category page
+  const cottonAdvantages = [
+    'قطن %100',
+    'قطن معطر',
+    'قطن ذا وزن أعلى',
+    'القطن المصري',
+    'تم تصنيعه بأعلى المواصفات التركية'
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -92,6 +103,19 @@ const ProductType: React.FC = () => {
               <p className="text-white/90 mt-2 max-w-2xl">
                 {type.description}
               </p>
+              
+              {/* Cotton Advantages */}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {cottonAdvantages.map((advantage, index) => (
+                  <Badge 
+                    key={index} 
+                    className="bg-white/20 text-white backdrop-blur-sm flex items-center gap-1.5 py-1.5 px-3"
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    <span>{advantage}</span>
+                  </Badge>
+                ))}
+              </div>
             </div>
           </div>
         </div>
