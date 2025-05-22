@@ -6,7 +6,7 @@ import ProductCard from './ProductCard';
 import { products } from '../data/products';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 
 const categories = [{
   id: 'underwear',
@@ -53,13 +53,22 @@ const CategoryList: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {categories.map(category => {
           const categoryProducts = getCategoryProducts(category.id);
-          return <Card key={category.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 border-0">
+          return <Card key={category.id} className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 relative">
+                {/* New diagonal ribbon effect */}
+                <div className="absolute -top-2 -left-12 w-40 transform rotate-315 bg-red-500 text-white py-1 text-xs font-bold text-center z-10">
+                  تشكيلة جديدة
+                </div>
+                
                 {/* Top part with category image */}
                 <div className="relative h-72 overflow-hidden bg-white">
-                  <img src={category.image} alt={category.name} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                  <img 
+                    src={category.image} 
+                    alt={category.name} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end">
                     <div className="p-6 text-white">
-                      <h3 className="text-2xl font-bold mb-2">{category.name}</h3>
+                      <h3 className="text-2xl font-bold mb-2 group-hover:text-red transition-colors">{category.name}</h3>
                       <p className="text-white/80 text-sm">{category.description}</p>
                       
                       {/* Available Sizes Tag */}
@@ -72,18 +81,7 @@ const CategoryList: React.FC = () => {
                         </div>
                       </div>
                       
-                      {/* Category Advantages */}
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {category.advantages.map((advantage, index) => (
-                          <Badge 
-                            key={index} 
-                            className="bg-white/20 text-white backdrop-blur-sm flex items-center gap-1.5 py-1 px-2.5 text-xs"
-                          >
-                            <Check className="w-3 h-3" />
-                            <span>{advantage}</span>
-                          </Badge>
-                        ))}
-                      </div>
+                      {/* Category advantages don't appear on index page as requested */}
                     </div>
                   </div>
                 </div>
@@ -92,12 +90,15 @@ const CategoryList: React.FC = () => {
                 <CardContent className="p-6">
                   <div className="mb-4 flex justify-between items-center">
                     <h4 className="text-lg font-medium text-darkblue">منتجات مختارة</h4>
-                    <Link to={`/products/${category.id}`} className="text-red hover:text-navy text-sm font-medium transition-colors">عرض كل التشكيلات</Link>
+                    <Link to={`/products/${category.id}`} className="flex items-center gap-1 text-red hover:text-navy text-sm font-medium transition-colors">
+                      عرض كل التشكيلات
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
                   </div>
                   
                   {/* Always show products in a row, even on mobile */}
                   <div className="grid grid-cols-2 gap-3">
-                    {categoryProducts.map(product => <div key={product.id}>
+                    {categoryProducts.map(product => <div key={product.id} className="hover:scale-105 transition-transform duration-300">
                         <ProductCard product={product} />
                       </div>)}
                   </div>

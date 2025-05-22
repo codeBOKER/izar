@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { FilterBar } from '../components/FilterBar';
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 
 const ProductType: React.FC = () => {
   const { typeId } = useParams<{ typeId: string }>();
@@ -96,45 +96,55 @@ const ProductType: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
-        {/* Category Hero Banner */}
-        <div className="relative h-64 md:h-80 overflow-hidden">
+        {/* Category Hero Banner with enhanced styling */}
+        <div className="relative h-80 md:h-96 overflow-hidden">
           <img 
             src={categoryImage} 
             alt={type.label}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-            <div className="container mx-auto px-4 pb-8">
-              <h1 className="text-3xl font-bold text-white">{type.label}</h1>
-              <p className="text-white/90 mt-2 max-w-2xl">
-                {type.description}
-              </p>
-              
-              {/* Category Advantages */}
-              <div className="mt-4 flex flex-wrap gap-2">
-                {categoryAdvantages.map((advantage, index) => (
-                  <Badge 
-                    key={index} 
-                    className="bg-white/20 text-white backdrop-blur-sm flex items-center gap-1.5 py-1.5 px-3"
-                  >
-                    <Check className="w-3.5 h-3.5" />
-                    <span>{advantage}</span>
-                  </Badge>
-                ))}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent flex items-end">
+            <div className="container mx-auto px-4 pb-12">
+              <div className="bg-white/10 backdrop-blur-lg p-6 rounded-lg max-w-3xl border border-white/20">
+                <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                  <span className="inline-flex items-center gap-2">
+                    <Sparkles className="w-6 h-6 text-yellow-400" />
+                    {type.label}
+                  </span>
+                </h1>
+                <p className="text-white/90 mt-2 max-w-2xl text-lg">
+                  {type.description}
+                </p>
+                
+                {/* Category Advantages with enhanced styling */}
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {categoryAdvantages.map((advantage, index) => (
+                    <Badge 
+                      key={index} 
+                      className="bg-white/20 text-white backdrop-blur-sm flex items-center gap-1.5 py-2 px-3.5 rounded-md"
+                    >
+                      <Check className="w-3.5 h-3.5 text-yellow-400" />
+                      <span>{advantage}</span>
+                    </Badge>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="container mx-auto px-4 py-8">
-          {/* Available Sizes Card */}
-          <Card className="mb-6 p-4 bg-white shadow-sm">
-            <h3 className="text-lg font-medium mb-3">المقاسات المتاحة:</h3>
-            <div className="flex flex-wrap gap-2">
+          {/* Available Sizes Card with enhanced styling */}
+          <Card className="mb-8 p-6 bg-white shadow-md border-t-4 border-t-red">
+            <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
+              <span className="h-5 w-1.5 bg-red rounded-full"></span>
+              المقاسات المتاحة:
+            </h3>
+            <div className="flex flex-wrap gap-3">
               {availableSizes.map((size) => (
                 <span
                   key={size}
-                  className="px-3 py-1.5 bg-softgray text-darkblue rounded-md text-sm font-medium"
+                  className="px-4 py-2 bg-softgray text-darkblue rounded-md text-sm font-medium hover:bg-red/10 transition-colors cursor-default"
                 >
                   {size}
                 </span>
@@ -142,8 +152,8 @@ const ProductType: React.FC = () => {
             </div>
           </Card>
           
-          {/* Filter bar - positioned at the top */}
-          <div className="top-24 z-40 bg-white py-4 mb-6 border-b">
+          {/* Filter bar with updated styling */}
+          <div className="sticky top-24 z-40 bg-white py-5 mb-6 border-b shadow-sm rounded-lg">
             <FilterBar 
               products={products} 
               onFilterChange={setFilteredProducts}
