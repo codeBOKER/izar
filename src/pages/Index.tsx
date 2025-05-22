@@ -20,7 +20,7 @@ const Index: React.FC = () => {
         <Hero />
         
         <CategoryList />
-
+{/* 
         <div className="container mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-darkblue mb-4">منتجات بالجملة</h2>
@@ -30,13 +30,12 @@ const Index: React.FC = () => {
           </div>
           
           <ProductGrid products={featuredProducts} />
-        </div>
-        
-        <CustomerReviews />
+        </div> */}
         
         <BusinessPartners />
         
-        <div className="container mx-auto px-4 py-16">
+        <CustomerReviews />
+        {/* <div className="container mx-auto px-4 py-16">
           <div className="bg-beige rounded-xl p-8 md:p-12 text-center">
             <h2 className="text-3xl font-bold text-darkblue mb-4">المزايا التنافسية لشركاء الأعمال</h2>
             <p className="text-gray-700 mb-8 max-w-2xl mx-auto">
@@ -61,7 +60,7 @@ const Index: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </main>
       <Footer />
     </div>

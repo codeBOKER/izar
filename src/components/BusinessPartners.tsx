@@ -62,10 +62,10 @@ const BusinessPartners: React.FC = () => {
         
         {/* Values section with expanded advantages */}
         <div className="mt-16 bg-gradient-to-br from-white to-beige/20 rounded-xl shadow-md p-8 mx-auto">
-          <h3 className="text-xl font-bold text-darkblue mb-6 text-center">مزايا منتجاتنا</h3>
+          <h3 className="text-3xl font-bold text-darkblue mb-6 text-center">مزايا منتجاتنا</h3>
           
           {/* Advantages section - always two per row on mobile, three per row on desktop, full width on desktop */}
-          <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen max-w-none grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 px-4 md:px-16">
+          <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen max-w-none grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 px-5 md:px-16">
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-8 sm:w-8 text-darkblue" viewBox="0 0 20 20" fill="currentColor">
