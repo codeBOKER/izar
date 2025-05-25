@@ -96,7 +96,7 @@ const ProductType: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
-        {/* Category Hero Banner with enhanced styling */}
+        {/* Category Hero Banner */}
         <div className="relative h-80 md:h-96 overflow-hidden">
           <img 
             src={categoryImage} 
@@ -115,26 +115,32 @@ const ProductType: React.FC = () => {
                 <p className="text-white/90 mt-2 max-w-2xl text-lg">
                   {type.description}
                 </p>
-                
-                {/* Category Advantages with enhanced styling */}
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {categoryAdvantages.map((advantage, index) => (
-                    <Badge 
-                      key={index} 
-                      className="bg-white/20 text-white backdrop-blur-sm flex items-center gap-1.5 py-2 px-3.5 rounded-md"
-                    >
-                      <Check className="w-3.5 h-3.5 text-yellow-400" />
-                      <span>{advantage}</span>
-                    </Badge>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="container mx-auto px-4 py-8">
-          {/* Available Sizes Card with enhanced styling */}
+          {/* New Advantages Section */}
+          <Card className="mb-8 p-6 bg-white shadow-md border-t-4 border-t-red">
+            <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
+              <span className="h-5 w-1.5 bg-red rounded-full"></span>
+              مميزات المنتج:
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              {categoryAdvantages.map((advantage, index) => (
+                <Badge 
+                  key={index} 
+                  className="bg-green-50 text-green-700 border border-green-200 flex items-center gap-2 py-2 px-4 rounded-md text-sm hover:bg-green-100 transition-colors"
+                >
+                  <Check className="w-4 h-4 text-green-600" />
+                  <span>{advantage}</span>
+                </Badge>
+              ))}
+            </div>
+          </Card>
+
+          {/* Available Sizes Card */}
           <Card className="mb-8 p-6 bg-white shadow-md border-t-4 border-t-red">
             <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
               <span className="h-5 w-1.5 bg-red rounded-full"></span>
@@ -152,8 +158,8 @@ const ProductType: React.FC = () => {
             </div>
           </Card>
           
-          {/* Filter bar with updated styling */}
-          <div className="sticky top-24 z-40 bg-white py-5 mb-6 border-b shadow-sm rounded-lg">
+          {/* Filter bar - removed sticky */}
+          <div className="bg-white py-5 mb-6 border-b shadow-sm rounded-lg">
             <FilterBar 
               products={products} 
               onFilterChange={setFilteredProducts}
