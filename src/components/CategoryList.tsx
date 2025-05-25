@@ -59,45 +59,48 @@ const CategoryList: React.FC = () => {
                   تشكيلة جديدة
                 </div>
                 
-                {/* Top part with category image */}
-                <div className="relative h-72 overflow-hidden bg-white">
+                {/* Top part with category image - Mobile responsive */}
+                <div className="relative h-64 md:h-72 overflow-hidden bg-white">
                   <img 
                     src={category.image} 
                     alt={category.name} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end">
-                    <div className="p-6 text-white">
-                      <h3 className="text-2xl font-bold mb-2 group-hover:text-red transition-colors">{category.name}</h3>
-                      <p className="text-white/80 text-sm">{category.description}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent flex items-end">
+                    <div className="p-4 md:p-6 text-white w-full">
+                      <h3 className="text-xl md:text-2xl font-bold mb-1 md:mb-2 group-hover:text-red transition-colors">{category.name}</h3>
+                      <p className="text-white/80 text-xs md:text-sm mb-2 md:mb-3 line-clamp-2">{category.description}</p>
                       
-                      {/* Available Sizes Tag */}
-                      <div className="mt-3 bg-white/20 backdrop-blur-sm py-1 px-3 rounded-full inline-flex items-center">
-                        <span className="text-white text-xs font-medium">المقاسات :</span>
-                        <div className="flex flex-wrap gap-1 mr-1">
-                          {category.sizes.map((size, index) => <span key={index} className="text-xs text-white">
-                              {size}{index < category.sizes.length - 1 ? '، ' : ''}
-                            </span>)}
+                      {/* Available Sizes Tag - Mobile optimized */}
+                      <div className="bg-white/20 backdrop-blur-sm py-1 px-2 md:px-3 rounded-full inline-flex items-center">
+                        <span className="text-white text-xs font-medium">المقاسات:</span>
+                        <div className="flex flex-wrap gap-0.5 mr-1">
+                          {category.sizes.slice(0, 6).map((size, index) => 
+                            <span key={index} className="text-xs text-white">
+                              {size}{index < Math.min(category.sizes.length, 6) - 1 ? '، ' : ''}
+                            </span>
+                          )}
+                          {category.sizes.length > 6 && (
+                            <span className="text-xs text-white">...</span>
+                          )}
                         </div>
                       </div>
-                      
-                      {/* Category advantages don't appear on index page as requested */}
                     </div>
                   </div>
                 </div>
                 
                 {/* Bottom part with product previews */}
-                <CardContent className="p-6">
-                  <div className="mb-4 flex justify-between items-center">
-                    <h4 className="text-lg font-medium text-darkblue">منتجات مختارة</h4>
-                    <Link to={`/products/${category.id}`} className="flex items-center gap-1 text-red hover:text-navy text-sm font-medium transition-colors">
-                      عرض كل التشكيلات
-                      <ArrowRight className="w-4 h-4" />
+                <CardContent className="p-4 md:p-6">
+                  <div className="mb-3 md:mb-4 flex justify-between items-center">
+                    <h4 className="text-base md:text-lg font-medium text-darkblue">منتجات مختارة</h4>
+                    <Link to={`/products/${category.id}`} className="flex items-center gap-1 text-red hover:text-navy text-xs md:text-sm font-medium transition-colors">
+                      عرض الكل
+                      <ArrowRight className="w-3 md:w-4 h-3 md:h-4" />
                     </Link>
                   </div>
                   
                   {/* Always show products in a row, even on mobile */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 md:gap-3">
                     {categoryProducts.map(product => <div key={product.id} className="hover:scale-105 transition-transform duration-300">
                         <ProductCard product={product} />
                       </div>)}
