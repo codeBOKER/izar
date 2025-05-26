@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -9,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { FilterBar } from '../components/FilterBar';
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Sparkles, Star, Shield, Zap } from "lucide-react";
+import { Check, Sparkles, Star, Shield, Zap, Shirt, Palette, Award } from "lucide-react";
 
 const ProductType: React.FC = () => {
   const { typeId } = useParams<{ typeId: string }>();
@@ -77,19 +76,19 @@ const ProductType: React.FC = () => {
     ? ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL']
     : ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'];
 
-  // Define advantages with icons based on category
+  // Define advantages with more relevant icons based on category
   const categoryAdvantages = typeId === 'underwear' 
     ? [
-        { text: 'قطن %100', icon: Shield },
+        { text: 'قطن %100', icon: Shirt },
         { text: 'قطن معطر', icon: Sparkles },
-        { text: 'قطن ذا وزن أعلى', icon: Star },
-        { text: 'القطن المصري', icon: Star },
-        { text: 'تم تصنيعه بأعلى المواصفات التركية', icon: Zap }
+        { text: 'قطن ذا وزن أعلى', icon: Shield },
+        { text: 'القطن المصري', icon: Award },
+        { text: 'تم تصنيعه بأعلى المواصفات التركية', icon: Star }
       ]
     : [
-        { text: 'تنوع الأقمشة', icon: Star },
-        { text: 'تنوع التصاميم والموديلات للقمصان', icon: Sparkles },
-        { text: 'أقمشة ذا جودة عالية', icon: Shield }
+        { text: 'تنوع الأقمشة', icon: Shirt },
+        { text: 'تنوع التصاميم والموديلات للقمصان', icon: Palette },
+        { text: 'أقمشة ذا جودة عالية', icon: Award }
       ];
 
   return (
@@ -131,31 +130,25 @@ const ProductType: React.FC = () => {
               <div className="w-16 h-1 bg-gradient-to-r from-red to-red/60 mx-auto rounded-full"></div>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {categoryAdvantages.map((advantage, index) => {
-                const IconComponent = advantage.icon;
-                return (
-                  <div 
-                    key={index}
-                    className="group relative bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red/20"
-                  >
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red to-red/60 rounded-t-xl"></div>
-                    <div className="flex items-center gap-4">
-                      <div className="bg-gradient-to-br from-red to-red/80 p-3 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="w-5 h-5 text-white" />
+            <div className="grid grid-cols-1 gap-6">
+              <div className="flex flex-wrap justify-center gap-4">
+                {categoryAdvantages.map((advantage, index) => {
+                  const IconComponent = advantage.icon;
+                  return (
+                    <div 
+                      key={index}
+                      className="flex flex-col items-center bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red/20 min-w-[140px] max-w-[180px] group"
+                    >
+                      <div className="bg-gradient-to-br from-red to-red/80 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 mb-3">
+                        <IconComponent className="w-6 h-6 text-white" />
                       </div>
-                      <div className="flex-1">
-                        <p className="text-darkblue font-medium text-sm md:text-base leading-relaxed">
-                          {advantage.text}
-                        </p>
-                      </div>
-                      <div className="bg-green-100 p-1.5 rounded-full">
-                        <Check className="w-4 h-4 text-green-600" />
-                      </div>
+                      <p className="text-darkblue font-medium text-sm text-center leading-relaxed">
+                        {advantage.text}
+                      </p>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
 
