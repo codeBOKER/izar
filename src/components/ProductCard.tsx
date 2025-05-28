@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Product, ProductColor } from '../data/products';
 
@@ -22,28 +21,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div className="product-card bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="relative h-64 bg-beige flex items-center justify-center p-4">
+    <div className="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
+      <div className="relative aspect-[3/4] bg-beige flex items-center justify-center p-3">
         <img 
           src={getImageSrc()}
           alt={product.name} 
-          className="h-full object-contain" 
+          className="h-full w-full object-contain mix-blend-multiply" 
         />
       </div>
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-darkblue">{product.name}</h3>
-        <p className="text-sm text-gray-600 mb-3">{product.typeArabic}</p>
-        
-        <div className="mb-4">
-          <div className="text-sm font-medium mb-2">الألوان المتاحة:</div>
-          <div className="flex space-x-2 space-x-reverse">
+      <div className="p-3">
+        <h3 className="text-sm font-bold text-darkblue mb-1 line-clamp-1">{product.name}</h3>
+        <div className="mb-2">
+          <div className="text-xs font-medium mb-1">الألوان المتاحة:</div>
+          <div className="flex space-x-1.5 space-x-reverse">
             {product.colors.map((color) => (
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full border-2 ${
-                  selectedColor === color ? 'border-darkblue' : 'border-transparent'
-                }`}
+                className={`w-4 h-4 rounded-full border ${
+                  selectedColor === color ? 'border-darkblue ring-1 ring-darkblue' : 'border-gray-200'
+                } transition-all duration-200`}
                 style={{ 
                   backgroundColor: 
                     color === 'white' ? '#ffffff' : 
@@ -54,20 +51,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 }}
                 aria-label={`اللون ${color}`}
               />
-            ))}
-          </div>
-        </div>
-        
-        <div className="mb-4">
-          <div className="text-sm font-medium mb-2">المقاسات المتاحة:</div>
-          <div className="flex flex-wrap gap-2">
-            {product.sizes.map((size) => (
-              <span
-                key={size}
-                className="inline-block border border-gray-300 rounded px-2 py-1 text-xs"
-              >
-                {size}
-              </span>
             ))}
           </div>
         </div>
