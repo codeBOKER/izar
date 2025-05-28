@@ -124,45 +124,84 @@ const ProductType: React.FC = () => {
           <div className="mb-8">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-darkblue mb-2 flex items-center justify-center gap-2">
-                <Star className="w-6 h-6 text-yellow-500" />
-                مميزات المنتج
+                مميزات منتجاتنا
               </h2>
               <div className="w-16 h-1 bg-gradient-to-r from-red to-red/60 mx-auto rounded-full"></div>
             </div>
-            
-            <div className="grid grid-cols-1 gap-6">
-              <div className="flex flex-wrap justify-center gap-4">
-                {categoryAdvantages.map((advantage, index) => {
-                  const IconComponent = advantage.icon;
-                  return (
-                    <div 
-                      key={index}
-                      className="flex flex-col items-center bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red/20 min-w-[140px] max-w-[180px] group"
-                    >
-                      <div className="bg-gradient-to-br from-red to-red/80 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 mb-3">
-                        <IconComponent className="w-6 h-6 text-white" />
+            <div className="bg-gradient-to-br from-white to-gray-50 p-4 rounded-xl shadow-lg border border-gray-100">
+              {categoryAdvantages.length === 3 ? (
+                <div className="flex justify-center gap-2">
+                  {categoryAdvantages.map((advantage, index) => {
+                    const IconComponent = advantage.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center min-w-[90px] max-w-[120px] group p-1"
+                      >
+                        <div className="bg-gradient-to-br from-red to-red/80 p-2 rounded-full group-hover:scale-110 transition-transform duration-300 mb-1">
+                          <IconComponent className="w-4 h-4 text-white" />
+                        </div>
+                        <p className="text-darkblue font-medium text-xs text-center leading-relaxed">
+                          {advantage.text}
+                        </p>
                       </div>
-                      <p className="text-darkblue font-medium text-sm text-center leading-relaxed">
-                        {advantage.text}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <>
+                  <div className="flex justify-center gap-2 mb-2">
+                    {categoryAdvantages.slice(0, 3).map((advantage, index) => {
+                      const IconComponent = advantage.icon;
+                      return (
+                        <div
+                          key={index}
+                          className="flex flex-col items-center min-w-[90px] max-w-[120px] group p-1"
+                        >
+                          <div className="bg-gradient-to-br from-red to-red/80 p-2 rounded-full group-hover:scale-110 transition-transform duration-300 mb-1">
+                            <IconComponent className="w-4 h-4 text-white" />
+                          </div>
+                          <p className="text-darkblue font-medium text-xs text-center leading-relaxed">
+                            {advantage.text}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-center gap-2">
+                    {categoryAdvantages.slice(3).map((advantage, index) => {
+                      const IconComponent = advantage.icon;
+                      return (
+                        <div
+                          key={index}
+                          className="flex flex-col items-center min-w-[90px] max-w-[120px] group p-1"
+                        >
+                          <div className="bg-gradient-to-br from-red to-red/80 p-2 rounded-full group-hover:scale-110 transition-transform duration-300 mb-1">
+                            <IconComponent className="w-4 h-4 text-white" />
+                          </div>
+                          <p className="text-darkblue font-medium text-xs text-center leading-relaxed">
+                            {advantage.text}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
           {/* Available Sizes Card */}
-          <Card className="mb-8 p-6 bg-gradient-to-r from-gray-50 to-white shadow-md border-0 rounded-xl">
-            <div className="flex items-center gap-2 mb-4">
+          <Card className="mb-8 p-3 md:p-6 bg-gradient-to-r from-gray-50 to-white shadow-md border-0 rounded-xl">
+            <div className="flex items-center gap-2 mb-2 md:mb-4">
               <div className="w-1 h-6 bg-gradient-to-b from-red to-red/60 rounded-full"></div>
-              <h3 className="text-lg font-semibold text-darkblue">المقاسات المتاحة</h3>
+              <h3 className="text-base md:text-lg font-semibold text-darkblue">المقاسات المتاحة</h3>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 md:gap-3">
               {availableSizes.map((size) => (
                 <div
                   key={size}
-                  className="px-4 py-2 bg-white border-2 border-gray-200 text-darkblue rounded-lg text-sm font-medium hover:border-red hover:bg-red/5 transition-all duration-200 cursor-default shadow-sm"
+                  className="px-2 py-1 md:px-4 md:py-2 bg-white border-2 border-gray-200 text-darkblue rounded-lg text-xs md:text-sm font-medium hover:border-red hover:bg-red/5 transition-all duration-200 cursor-default shadow-sm"
                 >
                   {size}
                 </div>
@@ -186,9 +225,9 @@ const ProductType: React.FC = () => {
           />
           
           <div className="mt-12 text-center">
-            <Link to="/products">
+            <Link to="/">
               <Button variant="outline" className="border-darkblue text-darkblue hover:bg-darkblue hover:text-white">
-                العودة إلى جميع المنتجات
+                العودة إلى الصفحة الرئيسية
               </Button>
             </Link>
           </div>

@@ -1,22 +1,18 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Hero: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="relative bg-gradient-to-r from-slate-50 to-softgray">
-      <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 w-full order-1 md:order-2 relative">
-            <div className="relative h-90 sm:h-72 md:h-80 lg:h-96 w-full rounded-xl overflow-hidden flex items-center justify-center mt-0 md:mt-0">
-              <img
-                  src="/logo.png"
-                  className="object-contain h-full max-h-90 w-full max-w-sm sm:max-w-md md:max-w-full mx-auto"            
-              />
-            </div>
-          </div>
-          <div className="md:w-1/2 text-center md:text-right mb-10 md:mb-0 order-2 md:order-1">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-darkblue mb-6">
+    <div className="relative bg-gradient-to-r from-slate-50 to-softgray ">{/*min-h-screen flex lg:items-center*/}
+      <div className="container mx-auto px-4 py-2 md:py-16">{/*md:py-16*/}
+        <div className="flex flex-col-reverse md:flex-row lg:items-center">
+          <div className="md:w-1/2 text-center md:text-right mb-10 md:mb-0 mt-3 md:mt-0">
+            <h1 className="text-4xl md:text-3xl lg:text-6xl font-bold text-darkblue mb-2">
               ملابس داخلية مريحة<br />
               <span className="text-red">مع قمصان انيقة</span>
             </h1>
@@ -25,15 +21,24 @@ const Hero: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
               <Link to="/contact">
-                <Button  className="bg-red hover:bg-red/90 text-white px-8 py-3 rounded-md text-lg">
+                <Button className="bg-red hover:bg-red/90 text-white px-8 py-3 rounded-md text-lg">
                   طلب عرض أسعار
                 </Button>
               </Link>
               <Link to="/products">
-                <Button variant="outline"  className="border-red text-red hover:bg-red hover:text-white px-8 py-3 rounded-md text-lg">
+                <Button variant="outline" className="border-red text-red hover:bg-red hover:text-white px-8 py-3 rounded-md text-lg">
                   استعراض المنتجات
                 </Button>
               </Link>
+            </div>
+          </div>
+          <div className="md:w-1/2 w-full">
+            <div className="flex items-center justify-center h-60 sm:h-72 md:h-80 lg:h-96 w-full">
+              <img
+                src="/logo.png"
+                className="object-contain h-full w-full max-h-full md:max-w-full mx-auto"
+                alt="Logo"
+              />
             </div>
           </div>
         </div>

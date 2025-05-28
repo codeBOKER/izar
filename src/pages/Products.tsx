@@ -5,6 +5,8 @@ import Footer from '../components/Footer';
 import { products } from '../data/products';
 import ProductGrid from '../components/ProductGrid';
 import { FilterBar } from '../components/FilterBar';
+import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
 
 const Products: React.FC = () => {
   const [filteredProducts, setFilteredProducts] = useState(products);
@@ -38,6 +40,14 @@ const Products: React.FC = () => {
           </div>
 
           <ProductGrid products={filteredProducts} title="جميع المنتجات" />
+
+          <div className="mt-10 mb-10 text-center">
+            <Link to="/">
+              <Button variant="outline" className="border-darkblue text-darkblue hover:bg-darkblue hover:text-white">
+                العودة إلى الصفحة الرئيسية
+              </Button>
+            </Link>
+          </div>
         </div>
       </main>
       <Footer />
