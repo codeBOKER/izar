@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Product } from '../data/products';
 import { Filter, X, Search as SearchIcon } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -8,52 +7,43 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import axios from 'axios';
 
 interface FilterBarProps {
-  products: Product[];
-  onFilterChange: (filteredProducts: Product[]) => void;
-  buildSearchUrl: (searchQuery: string) => string; 
+  baseUrl: string; // e.g. '/products/' or `/category-products/<id>/`
+  onFilterChange: (filteredProducts: any[]) => void;
 }
 
-export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange, buildSearchUrl }) => {
+export const FilterBar: React.FC<FilterBarProps> = ({ baseUrl, onFilterChange }) => {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isOpen, setIsOpen] = useState(true);
   const [isSearching, setIsSearching] = useState(false);
-  
+
   // Predefined keywords for filtering
   const keywords = ['بوكسر', 'شورت', 'فنيلة'];
 
-  // Apply filters
+  // Fetch filtered products from backend
   useEffect(() => {
-    let result = [...products];
-
-    // Apply keyword filter
-    if (selectedKeywords.length > 0) {
-      result = result.filter(product =>
-        selectedKeywords.some(keyword =>
-          product.header.includes(keyword) ||
-          product.description.includes(keyword)
-        )
-      );
-    }
-
-    // If searchQuery is not empty, fetch from API instead of local filter
-    if (searchQuery.trim() !== '') {
+    const fetchFilteredProducts = async () => {
       setIsSearching(true);
-
-      axios.get(buildSearchUrl(searchQuery))
-        .then((response) => {
-          onFilterChange(response.data.products || []);
-        })
-        .catch((error) => {
-          console.error('Error searching products:', error);
-          onFilterChange([]);
-        })
-        .finally(() => setIsSearching(false));
-      return;
-    }
-
-    onFilterChange(result);
-  }, [selectedKeywords, searchQuery, products, onFilterChange, buildSearchUrl]);
+      try {
+        let url = baseUrl;
+        const params: any = {};
+        if (searchQuery.trim() !== '') params.search = searchQuery;
+        if (selectedKeywords.length > 0) params.keywords = selectedKeywords.join(',');
+        // Build query string
+        const queryString = new URLSearchParams(params).toString();
+        if (queryString) url += (url.includes('?') ? '&' : '?') + queryString;
+        const response = await axios.get(url);
+        onFilterChange(response.data.products || response.data || []);
+      } catch (error) {
+        console.error('Error fetching filtered products:', error);
+        onFilterChange([]);
+      } finally {
+        setIsSearching(false);
+      }
+    };
+    fetchFilteredProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedKeywords, searchQuery, baseUrl]);
 
   // Toggle keyword selection
   const toggleKeyword = (keyword: string) => {

@@ -11,6 +11,7 @@ import { Sparkles, Star, Shield, Shirt, Palette, Award } from "lucide-react";
 
 const ProductType: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
+  const apiUrl = `${import.meta.env.VITE_API_URL}/category-products/${categoryId}/`;
   
   const [categoryBlock, setCategoryBlock] = useState<any>(null);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
@@ -19,8 +20,7 @@ const ProductType: React.FC = () => {
 
   useEffect(() => {
     if (!categoryId) return;
-    const apiUrl = import.meta.env.VITE_API_URL;
-    axios.get(`${apiUrl}/category-products/${categoryId}/?page=${page}`)
+    axios.get(`${apiUrl}?page=${page}`)
       .then((response) => {
         setCategoryBlock(response.data);
       })
@@ -154,12 +154,8 @@ const ProductType: React.FC = () => {
           {/* Filter bar */}
           <div className="bg-white py-5 mb-6 border-b shadow-sm rounded-lg">
             <FilterBar 
-              products={categoryBlock.products} 
+              baseUrl={apiUrl}
               onFilterChange={setFilteredProducts}
-              buildSearchUrl={(searchQuery) => {
-                const apiUrl = import.meta.env.VITE_API_URL;
-                return `${apiUrl}/category-products/${categoryId}/?search=${encodeURIComponent(searchQuery)}`;
-              }}
             />
           </div>
           

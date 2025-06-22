@@ -13,10 +13,9 @@ const Products: React.FC = () => {
   const [shuffledProducts, setShuffledProducts] = useState([]); // new state
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
+  const apiUrl = import.meta.env.VITE_API_URL+"/products/";
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL;
-    axios.get(`${apiUrl}/products/?page=${page}`)
+    axios.get(`${apiUrl}?page=${page}`)
       .then((response) => {
         setProducts(response.data.products);
         setTotalPages(response.data.total_pages);
@@ -52,12 +51,8 @@ const Products: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="top-20 z-40 bg-white py-4 mb-6 border-b">
             <FilterBar 
-              products={shuffledProducts} 
+              baseUrl={apiUrl}
               onFilterChange={handleFilterChange}
-              buildSearchUrl={(searchQuery) => {
-                const apiUrl = import.meta.env.VITE_API_URL;
-                return `${apiUrl}/products/?search=${encodeURIComponent(searchQuery)}`;
-              }}
             />
           </div>
 
