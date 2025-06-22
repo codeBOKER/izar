@@ -1,25 +1,40 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { products } from '../data/products';
 import ProductGrid from '../components/ProductGrid';
 import { FilterBar } from '../components/FilterBar';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 
 const Products: React.FC = () => {
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [shuffledProducts, setShuffledProducts] = useState([]); // new state
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // Shuffle products randomly - only once when component mounts
-  const shuffledProducts = React.useMemo(() => {
-    return [...products].sort(() => Math.random() - 0.5);
+  useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    axios.get(`${apiUrl}/products/?page=${page}`)
+      .then((response) => {
+        setProducts(response.data.products);
+        setTotalPages(response.data.total_pages);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, [page]);
+
+  // Shuffle products only when products change
+  useEffect(() => {
+    setShuffledProducts([...products].sort(() => Math.random() - 0.5));
   }, [products]);
 
   // Handle filter change from FilterBar
-  const handleFilterChange = (filtered: typeof products) => {
+  const handleFilterChange = useCallback((filtered) => {
     setFilteredProducts(filtered);
-  };
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -36,18 +51,40 @@ const Products: React.FC = () => {
 
         <div className="container mx-auto px-4">
           <div className="top-20 z-40 bg-white py-4 mb-6 border-b">
-            <FilterBar products={shuffledProducts} onFilterChange={handleFilterChange} />
+            <FilterBar 
+              products={shuffledProducts} 
+              onFilterChange={handleFilterChange}
+              buildSearchUrl={(searchQuery) => {
+                const apiUrl = import.meta.env.VITE_API_URL;
+                return `${apiUrl}/products/?search=${encodeURIComponent(searchQuery)}`;
+              }}
+            />
           </div>
 
           <ProductGrid products={filteredProducts} title="جميع المنتجات" />
 
-          <div className="mt-10 mb-10 text-center">
-            <Link to="/">
-              <Button variant="outline" className="border-darkblue text-darkblue hover:bg-darkblue hover:text-white">
-                العودة إلى الصفحة الرئيسية
+          {/* Pagination buttons */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-8 mb-10">
+              <Button
+                variant="outline"
+                disabled={page === 1}
+                onClick={() => setPage(page - 1)}
+              >
+                السابق
               </Button>
-            </Link>
-          </div>
+              <span className="mx-2 text-darkblue font-semibold">
+                صفحة {page} من {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                disabled={page === totalPages}
+                onClick={() => setPage(page + 1)}
+              >
+                التالي
+              </Button>
+            </div>
+          )}
         </div>
       </main>
       <Footer />

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Product } from '../data/products';
 import { Filter, X, Search as SearchIcon } from 'lucide-react';
@@ -6,19 +5,22 @@ import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Input } from "@/components/ui/input";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import axios from 'axios';
 
 interface FilterBarProps {
   products: Product[];
   onFilterChange: (filteredProducts: Product[]) => void;
+  buildSearchUrl: (searchQuery: string) => string; 
 }
 
-export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }) => {
+export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange, buildSearchUrl }) => {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isOpen, setIsOpen] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
   
   // Predefined keywords for filtering
-  const keywords = ['شورت', 'فنيلة', 'بوكسر'];
+  const keywords = ['بوكسر', 'شورت', 'فنيلة'];
 
   // Apply filters
   useEffect(() => {
@@ -28,24 +30,30 @@ export const FilterBar: React.FC<FilterBarProps> = ({ products, onFilterChange }
     if (selectedKeywords.length > 0) {
       result = result.filter(product =>
         selectedKeywords.some(keyword =>
-          product.name.includes(keyword) ||
-          product.typeArabic.includes(keyword) ||
+          product.header.includes(keyword) ||
           product.description.includes(keyword)
         )
       );
     }
 
-    // Apply search filter
+    // If searchQuery is not empty, fetch from API instead of local filter
     if (searchQuery.trim() !== '') {
-      result = result.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.typeArabic.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      setIsSearching(true);
+
+      axios.get(buildSearchUrl(searchQuery))
+        .then((response) => {
+          onFilterChange(response.data.products || []);
+        })
+        .catch((error) => {
+          console.error('Error searching products:', error);
+          onFilterChange([]);
+        })
+        .finally(() => setIsSearching(false));
+      return;
     }
 
     onFilterChange(result);
-  }, [selectedKeywords, searchQuery, products, onFilterChange]);
+  }, [selectedKeywords, searchQuery, products, onFilterChange, buildSearchUrl]);
 
   // Toggle keyword selection
   const toggleKeyword = (keyword: string) => {

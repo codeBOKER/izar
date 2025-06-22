@@ -6,18 +6,11 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const [selectedColor, setSelectedColor] = useState<ProductColor>('white');
+  const [selectedColor, setSelectedColor] = useState<ProductColor>(product.colors[0]);
   
   // Get the image based on selected color
   const getImageSrc = () => {
-    if (selectedColor === 'white') {
-      return product.images.white;
-    } else {
-      const colorIndex = product.colors.indexOf(selectedColor) - 1; // -1 because white is at index 0
-      return colorIndex >= 0 && colorIndex < product.images.colored.length
-        ? product.images.colored[colorIndex]
-        : product.images.white;
-    }
+    return selectedColor.image;
   };
 
   return (
@@ -25,31 +18,24 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className="relative aspect-[3/4] bg-beige flex items-center justify-center p-3">
         <img 
           src={getImageSrc()}
-          alt={product.name} 
+          alt={product.header} 
           className="h-full w-full object-contain mix-blend-multiply" 
         />
       </div>
       <div className="p-3">
-        <h3 className="text-sm font-bold text-darkblue mb-1 line-clamp-1">{product.name}</h3>
+        <h3 className="text-sm font-bold text-darkblue mb-1 line-clamp-1">{product.header}</h3>
         <div className="mb-2">
           <div className="text-xs font-medium mb-1">الألوان المتاحة:</div>
           <div className="flex space-x-1.5 space-x-reverse">
-            {product.colors.map((color) => (
+            {product.colors.map(color => (
               <button
-                key={color}
+                key={color.id}
                 onClick={() => setSelectedColor(color)}
                 className={`w-4 h-4 rounded-full border ${
-                  selectedColor === color ? 'border-darkblue ring-1 ring-darkblue' : 'border-gray-200'
+                  selectedColor.id === color.id ? 'border-darkblue ring-1 ring-darkblue' : 'border-gray-200'
                 } transition-all duration-200`}
-                style={{ 
-                  backgroundColor: 
-                    color === 'white' ? '#ffffff' : 
-                    color === 'blue' ? '#af2734' : // Replace blue with red
-                    color === 'gray' ? '#9AA0A6' : 
-                    color === 'black' ? '#202124' :
-                    color === 'red' ? '#EA4335' : '#ffffff'
-                }}
-                aria-label={`اللون ${color}`}
+                style={{ backgroundColor: color.color_code }}
+                aria-label={`اللون ${color.name}`}
               />
             ))}
           </div>

@@ -5,11 +5,10 @@ import { Product } from '../data/products';
 
 interface ProductTypeSectionProps {
   typeLabel: string;
-  typeId: string;
   products: Product[];
 }
 
-const ProductTypeSection: React.FC<ProductTypeSectionProps> = ({typeId, typeLabel, products }) => {
+const ProductTypeSection: React.FC<ProductTypeSectionProps> = ({typeLabel, products }) => {
   return (
     <div className="w-full">
       {typeLabel && (

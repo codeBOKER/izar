@@ -1,5 +1,5 @@
-
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from "@/components/ui/button";
@@ -7,10 +7,39 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 const Contact: React.FC = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone_number: '',
+    topic: '',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({
+      ...form,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission (would connect to backend in a real app)
-    console.log('Form submitted');
+    setLoading(true);
+    setSuccess(false);
+    setError('');
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      await axios.post(`${apiUrl}/email/`, form);
+      setSuccess(true);
+      setForm({ name: '', email: '', phone_number: '', topic: '', message: '' });
+    } catch (err: any) {
+      setError('فشل إرسال الرسالة. حاول مرة أخرى.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,30 +91,26 @@ const Contact: React.FC = () => {
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                       الاسم
                     </label>
-                    <Input id="name" placeholder="أدخل اسمك" required />
+                    <Input id="name" placeholder="أدخل اسمك" required value={form.name} onChange={handleChange} />
                   </div>
-                  
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                       البريد الإلكتروني
                     </label>
-                    <Input id="email" type="email" placeholder="أدخل بريدك الإلكتروني" required />
+                    <Input id="email" type="email" placeholder="أدخل بريدك الإلكتروني" required value={form.email} onChange={handleChange} />
                   </div>
-                  
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700 mb-1">
                       رقم الهاتف
                     </label>
-                    <Input id="phone" placeholder="أدخل رقم هاتفك" />
+                    <Input id="phone_number" placeholder="أدخل رقم هاتفك" value={form.phone_number} onChange={handleChange} />
                   </div>
-                  
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="topic" className="block text-sm font-medium text-gray-700 mb-1">
                       الموضوع
                     </label>
-                    <Input id="subject" placeholder="موضوع الرسالة" required />
+                    <Input id="topic" placeholder="موضوع الرسالة" required value={form.topic} onChange={handleChange} />
                   </div>
-                  
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                       الرسالة
@@ -95,15 +120,19 @@ const Contact: React.FC = () => {
                       placeholder="أدخل رسالتك هنا..." 
                       className="min-h-32" 
                       required 
+                      value={form.message}
+                      onChange={handleChange}
                     />
                   </div>
-                  
+                  {success && <div className="text-green-600">تم إرسال الرسالة بنجاح!</div>}
+                  {error && <div className="text-red-600">{error}</div>}
                   <Button 
                     type="submit" 
                     className="w-full bg-darkblue hover:bg-navy text-white"
+                    disabled={loading}
                   >
-                    إرسال الرسالة
-                  </Button>
+                    {loading ? 'جاري الإرسال...' : 'إرسال الرسالة'}
+                  </Button> 
                 </form>
               </div>
             </div>

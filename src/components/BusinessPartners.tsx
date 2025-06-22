@@ -10,7 +10,7 @@ interface Brand {
   name: string;
   logo: string;
   link: string;
-  bgImage: string; // Add background image URL property
+  bgImage: string;
 }
 
 const brands: Brand[] = [
@@ -31,7 +31,6 @@ const brands: Brand[] = [
 ];
 
 const BusinessPartners: React.FC = () => {
-  const isMobile = useIsMobile();
 
   return (
     <div className="py-16 bg-white">
@@ -46,7 +45,7 @@ const BusinessPartners: React.FC = () => {
           {brands.map((brand) => (             
               <div
                 className="relative p-0.5 rounded-lg shadow-lg bg-cover bg-center rounded-xl overflow-hidden group"
-                style={{ backgroundImage: `url(${brand.bgImage})` }}
+                key={brand.id} style={{ backgroundImage: `url(${brand.bgImage})` }}
               >
                 {/* Dark overlay with blur for background filter */}
                 <div className="absolute inset-0 bg-white/10 backdrop-blur-md z-0 group-hover:backdrop-blur-0 transition-all duration-300" />
@@ -64,7 +63,6 @@ const BusinessPartners: React.FC = () => {
         <div className="mt-16 bg-gradient-to-br from-white to-beige/20 rounded-xl shadow-md p-8 mx-auto">
           <h3 className="text-3xl font-bold text-darkblue mb-6 text-center">مزايا منتجاتنا</h3>
           
-          {/* Advantages section - always two per row on mobile, three per row on desktop, full width on desktop */}
           <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen max-w-none grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 px-5 md:px-16">
             <div className="text-center">
               <div className="mb-4 mx-auto w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
