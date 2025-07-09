@@ -11,10 +11,18 @@ const CategoryList: React.FC = () => {
   const [categories, setCategories] = useState<any[]>([]);
   const isMobile = useIsMobile();
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    let apiUrl = import.meta.env.VITE_API_URL;
+    if (!apiUrl) {
+      console.error("VITE_API_URL is not set. Please check your environment variables.");
+      return;
+    }
+    // Remove trailing slash if present
+    if (apiUrl.endsWith('/')) {
+      apiUrl = apiUrl.slice(0, -1);
+    }
     axios.get(`${apiUrl}/home-categories/`)
       .then((response) => {
-        setCategories(response.data.categories); 
+        setCategories(response.data.categories);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
