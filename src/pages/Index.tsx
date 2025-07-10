@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import CategoryList from '../components/CategoryList';
-import BusinessPartners from '../components/BusinessPartners';
+import OurBrands from '../components/OurBrands';
 import CustomerReviews from '../components/CustomerReviews';
 
 
@@ -17,7 +17,7 @@ const Index: React.FC = () => {
         
         <CategoryList />
         
-        <BusinessPartners />
+        <OurBrands />
         
         <CustomerReviews />
       </main>
