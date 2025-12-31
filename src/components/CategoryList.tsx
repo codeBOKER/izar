@@ -6,50 +6,60 @@ import  ProductCard from './ProductCard';
 import { ArrowRight } from "lucide-react";
 import { useState, useEffect } from 'react';
 import { useIsMobile } from "../hooks/use-mobile";
+import { supabase } from '../supabaseClient';
 
 const CategoryList: React.FC = () => {
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryProducts, setCategoryProducts] = useState({});
   const isMobile = useIsMobile();
+  
   useEffect(() => {
-    let apiUrl = import.meta.env.VITE_API_URL;
-    if (!apiUrl) {
-      console.error("VITE_API_URL is not set. Please check your environment variables.");
-      return;
+    async function loadData() {
+      const { data, error } = await supabase.from('core_category').select('*')
+      if (error) console.error(error)
+      else {
+        setCategories(data)
+        // Fetch last 2 products for each category
+        const productsMap = {}
+        for (const category of data) {
+          const { data: products, error: productError } = await supabase
+            .from('core_product')
+            .select('*')
+            .eq('category_id', category.id)
+            .order('created_at', { ascending: false })
+            .limit(2)
+          
+          if (!productError) {
+            productsMap[category.id] = products
+          }
+        }
+        setCategoryProducts(productsMap)
+      }
     }
-    // Remove trailing slash if present
-    if (apiUrl.endsWith('/')) {
-      apiUrl = apiUrl.slice(0, -1);
-    }
-    axios.get(`${apiUrl}/home-categories/`)
-      .then((response) => {
-        setCategories(response.data.categories);
-      })
-      .catch((error) => {
-        console.error("Error fetching categories:", error);
-      });
-  }, []);
+    loadData()
+  }, [])
   return <div className="py-16">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center text-darkblue mb-12">تصفح حسب الفئة</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
-        {categories.map((categoryObj, index) => (
-          <Card key={categoryObj.category.id} className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 relative">
+        {categories.map((categoryObj) => (
+          <Card key={categoryObj.id} className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 relative">
             <div className="relative h-64 md:h-72 overflow-hidden bg-white">
               <img 
-                src={categoryObj.category.image} 
-                alt={categoryObj.category.name} 
+                src={categoryObj.image} 
+                alt={categoryObj.header} 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent flex flex-col justify-end">
                 <div className="p-4 md:p-6 text-white w-full">
-                  <h3 className="text-xl md:text-2xl font-bold mb-1 md:mb-2 group-hover:text-red transition-colors">{categoryObj.category.name}</h3>
-                  <p className="text-white/80 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">{categoryObj.category.description}</p>
+                  <h3 className="text-xl md:text-2xl font-bold mb-1 md:mb-2 group-hover:text-red transition-colors">{categoryObj.header}</h3>
+                  <p className="text-white/80 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">{categoryObj.description}</p>
 
                   <div className="bg-white/25 backdrop-blur-sm py-1 px-2 md:px-3 rounded-full inline-flex items-center">
                     <span className="text-white text-xs font-medium">المقاسات:</span>
                     <div className="flex flex-wrap gap-0.5 mr-1">
-                      {categoryObj.category.sizes.split(",").filter(Boolean)
+                      {categoryObj.sizes.split(",").filter(Boolean)
                         .slice(0, isMobile ? 5 : undefined)
                         .map((size, index, arr) => (
                           <span key={index} className="text-xs text-white">
@@ -63,21 +73,25 @@ const CategoryList: React.FC = () => {
             </div>
             
             {/* Bottom part with product previews */}
-            <CardContent className="p-4 md:p-6">
-              <div className="mb-3 md:mb-4 flex justify-between items-center">
-                <h4 className="text-base md:text-lg font-medium text-darkblue">منتجات مختارة</h4>
-                <Link to={`/products/${String(categoryObj.category.id)}/`} className="flex items-center gap-1 text-red hover:text-navy text-xs md:text-sm font-medium transition-colors">
-                  عرض الكل
-                  <ArrowRight className="w-3 md:w-4 h-3 md:h-4" />
-                </Link>
-              </div>
+            {categoryProducts[categoryObj.id] && categoryProducts[categoryObj.id].length > 0 && (
+              <CardContent className="p-4 md:p-6">
+                <div className="mb-3 md:mb-4 flex justify-between items-center">
+                  <h4 className="text-base md:text-lg font-medium text-darkblue">منتجات مختارة</h4>
+                  <Link to={`/products/${String(categoryObj.id)}/`} className="flex items-center gap-1 text-red hover:text-navy text-xs md:text-sm font-medium transition-colors">
+                    عرض الكل
+                    <ArrowRight className="w-3 md:w-4 h-3 md:h-4" />
+                  </Link>
+                </div>
 
-              <div className="grid grid-cols-2 gap-2 md:gap-3">
-                {categoryObj.products.map(product => <div key={product.id} className="hover:scale-105 transition-transform duration-300">
-                    <ProductCard key={product.id} product={product}/>
-                  </div>)}
-              </div>
-            </CardContent>
+                <div className="grid grid-cols-2 gap-2 md:gap-3">
+                  {categoryProducts[categoryObj.id].map(product => (
+                    <div key={product.id} className="hover:scale-105 transition-transform duration-300">
+                      {/* <ProductCard product={product}/> */}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            )}
           </Card>
         ))}
 

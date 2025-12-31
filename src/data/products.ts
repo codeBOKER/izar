@@ -11,12 +11,12 @@ export interface Product {
   id: number;
   header: string;
   description: string;
-  category: string;
+  category_id: string;
   colors: ProductColor[];
 }
 
 // Helper function to get products by type
 export const getProductsByType = (products: Product[], category: string): Product[] => {
-  return products.filter(product => product.category === category);
+  return products.filter(product => product.category_id === category);
 };
 

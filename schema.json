@@ -1,0 +1,482 @@
+[
+  {
+    "table_name": "auth_group",
+    "column_name": "id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_group",
+    "column_name": "name",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_group_permissions",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_group_permissions",
+    "column_name": "group_id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_group_permissions",
+    "column_name": "permission_id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_permission",
+    "column_name": "id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_permission",
+    "column_name": "name",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_permission",
+    "column_name": "content_type_id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_permission",
+    "column_name": "codename",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "password",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "last_login",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "YES"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "is_superuser",
+    "data_type": "boolean",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "username",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "first_name",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "last_name",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "email",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "is_staff",
+    "data_type": "boolean",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "is_active",
+    "data_type": "boolean",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user",
+    "column_name": "date_joined",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user_groups",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user_groups",
+    "column_name": "user_id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user_groups",
+    "column_name": "group_id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user_user_permissions",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user_user_permissions",
+    "column_name": "user_id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "auth_user_user_permissions",
+    "column_name": "permission_id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_category",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_category",
+    "column_name": "header",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_category",
+    "column_name": "description",
+    "data_type": "text",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_category",
+    "column_name": "image",
+    "data_type": "character varying",
+    "is_nullable": "YES"
+  },
+  {
+    "table_name": "core_category",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_category",
+    "column_name": "updated_at",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_category",
+    "column_name": "is_active",
+    "data_type": "boolean",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_category",
+    "column_name": "sizes",
+    "data_type": "text",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_email",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_email",
+    "column_name": "name",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_email",
+    "column_name": "email",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_email",
+    "column_name": "phone_number",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_email",
+    "column_name": "topic",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_email",
+    "column_name": "message",
+    "data_type": "text",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_email",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_product",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_product",
+    "column_name": "header",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_product",
+    "column_name": "description",
+    "data_type": "text",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_product",
+    "column_name": "price",
+    "data_type": "numeric",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_product",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_product",
+    "column_name": "updated_at",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_product",
+    "column_name": "is_active",
+    "data_type": "boolean",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_product",
+    "column_name": "category_id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_productcolor",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_productcolor",
+    "column_name": "name",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_productcolor",
+    "column_name": "color_code",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_productcolor",
+    "column_name": "image",
+    "data_type": "character varying",
+    "is_nullable": "YES"
+  },
+  {
+    "table_name": "core_productcolor",
+    "column_name": "is_available",
+    "data_type": "boolean",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_productcolor",
+    "column_name": "product_id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_review",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_review",
+    "column_name": "name",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_review",
+    "column_name": "job_description",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_review",
+    "column_name": "image",
+    "data_type": "character varying",
+    "is_nullable": "YES"
+  },
+  {
+    "table_name": "core_review",
+    "column_name": "review",
+    "data_type": "smallint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_review",
+    "column_name": "feedback",
+    "data_type": "text",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "core_review",
+    "column_name": "view",
+    "data_type": "boolean",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_admin_log",
+    "column_name": "id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_admin_log",
+    "column_name": "action_time",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_admin_log",
+    "column_name": "object_id",
+    "data_type": "text",
+    "is_nullable": "YES"
+  },
+  {
+    "table_name": "django_admin_log",
+    "column_name": "object_repr",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_admin_log",
+    "column_name": "action_flag",
+    "data_type": "smallint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_admin_log",
+    "column_name": "change_message",
+    "data_type": "text",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_admin_log",
+    "column_name": "content_type_id",
+    "data_type": "integer",
+    "is_nullable": "YES"
+  },
+  {
+    "table_name": "django_admin_log",
+    "column_name": "user_id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_content_type",
+    "column_name": "id",
+    "data_type": "integer",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_content_type",
+    "column_name": "app_label",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_content_type",
+    "column_name": "model",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_migrations",
+    "column_name": "id",
+    "data_type": "bigint",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_migrations",
+    "column_name": "app",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_migrations",
+    "column_name": "name",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_migrations",
+    "column_name": "applied",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_session",
+    "column_name": "session_key",
+    "data_type": "character varying",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_session",
+    "column_name": "session_data",
+    "data_type": "text",
+    "is_nullable": "NO"
+  },
+  {
+    "table_name": "django_session",
+    "column_name": "expire_date",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO"
+  }
+]
