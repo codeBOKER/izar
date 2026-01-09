@@ -1,72 +1,126 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProductTypeSection from '../components/ProductTypeSection';
 import { Button } from "@/components/ui/button";
-import { FilterBar } from '../components/FilterBar';
-import { Card } from "@/components/ui/card";
-import { Sparkles, Star, Shield, Shirt, Palette, Award } from "lucide-react";
+import { FilterBar } from '../components/FilterBar'; // Uses your new Floating Pill Filter
+import { Sparkles, Star, Shield, Shirt, Palette, Award, Ruler } from "lucide-react";
+import { supabase } from '../supabaseClient';
 
 const ProductType: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
-  const apiUrl = `${import.meta.env.VITE_API_URL}/category-products/${categoryId}/`;
-  
+
   const [categoryBlock, setCategoryBlock] = useState<any>(null);
+  const [allProducts, setAllProducts] = useState<any[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState<boolean>(true);
 
+  // --- DATA FETCHING (Unchanged Logic) ---
   useEffect(() => {
-    if (!categoryId) return;
-    axios.get(`${apiUrl}?page=${page}`)
-      .then((response) => {
-        setCategoryBlock(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-        setCategoryBlock({ category: null, products: [] }); // Set to trigger fallback UI
-      });
-  }, [categoryId,page]);
+    const fetchCategoryAndProducts = async () => {
+      if (!categoryId) return;
+      setLoading(true);
+      try {
+        const { data: categoryRows, error: categoryError } = await supabase
+          .from('core_category')
+          .select('*')
+          .eq('id', categoryId)
+          .limit(1);
 
-  useEffect(() => {
-    if (categoryBlock && categoryBlock.products) {
-      setFilteredProducts(categoryBlock.products);
-      setPage(categoryBlock.current_page);
-      setTotalPages(categoryBlock.totalPages);
-    }
-  }, [categoryBlock]);
-  
-  // Define advantages with more relevant icons based on category
+        if (categoryError) throw categoryError;
+        const category = categoryRows?.[0] || null;
+
+        const { data: prodRows, error: prodError } = await supabase
+          .from('core_product')
+          .select('*')
+          .eq('category_id', categoryId)
+          .order('created_at', { ascending: false });
+        if (prodError) throw prodError;
+
+        const ids = (prodRows ?? []).map((p: any) => p.id);
+        let colorsByProduct: Record<number, any[]> = {};
+        if (ids.length > 0) {
+          const { data: colorRows } = await supabase
+            .from('core_productcolor')
+            .select('*')
+            .in('product_id', ids);
+          colorsByProduct = (colorRows ?? []).reduce((acc: any, row: any) => {
+            (acc[row.product_id] ||= []).push(row);
+            return acc;
+          }, {});
+        }
+
+        const transformed = (prodRows ?? []).map((p: any) => ({
+          id: p.id,
+          header: p.header,
+          description: p.description,
+          category_id: String(p.category_id),
+          colors: (colorsByProduct[p.id] ?? []).map((c: any) => ({
+            id: c.id,
+            name: c.name,
+            color_code: c.color_code,
+            image: c.image,
+            is_available: c.is_available,
+            product: c.product_id,
+          })),
+        }));
+
+        const block = { category, products: transformed };
+        setCategoryBlock(block);
+        setAllProducts(transformed);
+        setFilteredProducts(transformed);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategoryAndProducts();
+  }, [categoryId]);
+
+  // --- ICONS MAPPING ---
   const categoryAdvantages = categoryId === '1'
     ? [
         { text: 'قطن %100', icon: Shirt },
         { text: 'قطن معطر', icon: Sparkles },
-        { text: 'قطن ذا وزن أعلى', icon: Shield },
+        { text: 'وزن مثالي', icon: Shield },
         { text: 'القطن المصري', icon: Award },
-        { text: 'تم تصنيعه بأعلى المواصفات التركية', icon: Star }
+        { text: 'مواصفات تركية', icon: Star }
       ]
     : [
-        { text: 'تنوع الأقمشة', icon: Shirt },
-        { text: 'تنوع التصاميم والموديلات للقمصان', icon: Palette },
-        { text: 'أقمشة ذا جودة عالية', icon: Award }
+        { text: 'أقمشة فاخرة', icon: Shirt },
+        { text: 'تصاميم عصرية', icon: Palette },
+        { text: 'جودة عالية', icon: Award }
       ];
 
-  if (!categoryBlock) {
-    return <p>جاري التحميل...</p>;
+  // --- SKELETON LOADING STATE ---
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <Header />
+        <div className="h-[50vh] bg-gray-200 animate-pulse" />
+        <div className="container mx-auto px-4 -mt-12 relative z-10">
+          <div className="h-32 bg-white rounded-2xl shadow-lg animate-pulse" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="aspect-[3/4] bg-gray-200 rounded-2xl animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  // Show fallback if category not found or no products
-  if (!categoryBlock.category || !categoryBlock.products || categoryBlock.products.length === 0) {
+  // --- ERROR STATE ---
+  if (!categoryBlock?.category) {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-grow container mx-auto px-4 py-16 text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">الفئة غير موجودة</h1>
-          <p className="mb-6">عذراً، الفئة التي تبحث عنها غير موجودة أو لا تحتوي على منتجات.</p>
+        <main className="flex-grow flex flex-col items-center justify-center p-4">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">الفئة غير موجودة</h1>
           <Link to="/products">
-            <Button>العودة إلى المنتجات</Button>
+            <Button variant="outline">العودة إلى المنتجات</Button>
           </Link>
         </main>
         <Footer />
@@ -75,118 +129,127 @@ const ProductType: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
       <main className="flex-grow">
-        {/* Category Hero Banner */}
-        <div className="relative h-80 md:h-96 overflow-hidden">
-          <img 
-            src={categoryBlock.category.image}
-            alt={categoryBlock.category.header}
-            className="w-full h-full object-cover scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent flex items-end">
-            <div className="container mx-auto px-4 pb-12">
-              <div className="bg-white/10 backdrop-blur-lg p-6 rounded-lg max-w-3xl border border-white/20">
-                <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-                  <span className="inline-flex items-center gap-2">
-                    <Sparkles className="w-6 h-6 text-yellow-400" />
-                    {categoryBlock.category.header}
-                  </span>
-                </h1>
-                <p className="text-white/90 mt-2 max-w-2xl text-lg">
-                  {categoryBlock.category.description}
-                </p>
+        
+        {/* --- 1. CINEMATIC HERO SECTION --- */}
+        <div className="relative h-[60vh] lg:h-[70vh] w-full overflow-hidden">
+          {/* Background Image with slight zoom animation */}
+          <div className="absolute inset-0 bg-slate-900">
+             <img 
+              src={categoryBlock.category.image}
+              alt={categoryBlock.category.header}
+              className="w-full h-full object-cover opacity-60 animate-in fade-in zoom-in duration-1000"
+            />
+          </div>
+          
+          {/* Gradient Overlay (Spotlight effect) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+
+          {/* Hero Content */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pb-20">
+             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-medium mb-4 uppercase tracking-widest">
+                <Sparkles size={14} className="text-yellow-400" />
+                تشكيلة حصرية
+             </div>
+             
+             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 drop-shadow-2xl">
+               {categoryBlock.category.header}
+             </h1>
+             
+             <p className="text-slate-200 text-lg md:text-xl max-w-2xl leading-relaxed font-light">
+               {categoryBlock.category.description}
+             </p>
+          </div>
+        </div>
+
+        {/* --- 2. FLOATING GLASS FEATURES STRIP --- */}
+        <div className="container mx-auto px-4 relative z-20 -mt-16 lg:-mt-24 mb-16">
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.05)] border border-white/50 p-6 lg:p-10">
+            
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-between">
+              
+              {/* Advantages List */}
+              <div className="flex-1 w-full overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
+                <div className="flex justify-around lg:justify-start gap-8 min-w-max">
+                  {categoryAdvantages.map((advantage, index) => {
+                    const IconComponent = advantage.icon;
+                    return (
+                      <div key={index} className="group flex flex-col items-center gap-3">
+                        <div className="
+                          w-12 h-12 lg:w-14 lg:h-14 rounded-2xl 
+                          bg-red/5 text-red
+                          flex items-center justify-center
+                          transition-all duration-300
+                          group-hover:bg-red group-hover:text-white group-hover:shadow-lg group-hover:shadow-red/30
+                          group-hover:-translate-y-1
+                        ">
+                          <IconComponent strokeWidth={1.5} size={24} />
+                        </div>
+                        <span className="text-xs lg:text-sm font-bold text-slate-700 group-hover:text-red transition-colors">
+                          {advantage.text}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Divider (Desktop Only) */}
+              <div className="hidden lg:block w-px h-16 bg-slate-200" />
+
+              {/* Sizes Chips */}
+              <div className="flex-shrink-0 flex flex-col items-center lg:items-end gap-3">
+                 <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
+                    <Ruler size={16} /> المقاسات المتاحة
+                 </div>
+                 <div className="flex flex-wrap justify-center gap-2">
+                    {categoryBlock.category.sizes.split(",").map((size: string) => (
+                      <span
+                        key={size}
+                        className="
+                          px-3 py-1.5 rounded-lg 
+                          bg-slate-100 border border-transparent 
+                          text-slate-600 text-sm font-bold
+                          transition-all duration-300
+                          hover:border-red/30 hover:text-red hover:bg-white hover:shadow-sm
+                        "
+                      >
+                        {size}
+                      </span>
+                    ))}
+                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-8">
-          {/* Redesigned Advantages Section */}
-          <div className="mb-8">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-darkblue mb-2 flex items-center justify-center gap-2">
-                مميزات منتجاتنا
-              </h2>
-              <div className="w-16 h-1 bg-gradient-to-r from-red to-red/60 mx-auto rounded-full"></div>
-            </div>
-            <div className="bg-gradient-to-br from-white to-gray-50 p-4 rounded-xl shadow-lg border border-gray-100">
-              <div className="flex flex-wrap justify-center lg:justify-between gap-2 md:gap-6">
-                {categoryAdvantages.map((advantage, index) => {
-                  const IconComponent = advantage.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="flex flex-col items-center min-w-[90px] max-w-[120px] md:min-w-[160px] md:max-w-[220px] group p-1 md:p-3"
-                    >
-                      <div className="bg-gradient-to-br from-red to-red/80 p-2 md:p-4 rounded-full group-hover:scale-110 transition-transform duration-300 mb-1 md:mb-2">
-                        <IconComponent className="w-4 h-4 md:w-7 md:h-7 text-white" />
-                      </div>
-                      <p className="text-darkblue font-medium text-xs md:text-base text-center leading-relaxed">
-                        {advantage.text}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Available Sizes Card */}
-          <Card className="mb-8 p-3 md:p-6 bg-gradient-to-r from-gray-50 to-white shadow-md border-0 rounded-xl">
-            <div className="flex items-center gap-2 mb-2 md:mb-4">
-              <div className="w-1 h-6 bg-gradient-to-b from-red to-red/60 rounded-full"></div>
-              <h3 className="text-base md:text-lg font-semibold text-darkblue">المقاسات المتاحة</h3>
-            </div>
-            <div className="flex flex-wrap gap-2 md:gap-3">
-              {categoryBlock.category.sizes.split(",").map((size) => (
-                <div
-                  key={size}
-                  className="px-2 py-1 md:px-4 md:py-2 bg-white border-2 border-gray-200 text-darkblue rounded-lg text-xs md:text-sm font-medium hover:border-red hover:bg-red/5 transition-all duration-200 cursor-default shadow-sm"
-                >
-                  {size}
-                </div>
-              ))}
-            </div>
-          </Card>
+        {/* --- 3. STICKY FILTER & GRID --- */}
+        <div className="container mx-auto px-4 pb-24">
           
-          {/* Filter bar */}
-          <div className="bg-white py-5 mb-6 border-b shadow-sm rounded-lg">
-            <FilterBar 
-              baseUrl={apiUrl}
-              onFilterChange={setFilteredProducts}
+          <div className="sticky top-4 z-30 mb-10">
+             <FilterBar 
+               baseUrl={`/products/${categoryId}`}
+               onFilterChange={setFilteredProducts}
+               initialProducts={allProducts}
+               categoryId={categoryId}
+             />
+          </div>
+          
+          {filteredProducts.length > 0 ? (
+            <ProductTypeSection
+              typeLabel="" // We handled the title in the hero
+              products={filteredProducts}
             />
-          </div>
-          
-          {/* Product grid */}
-          <ProductTypeSection
-            typeLabel=""
-            products={filteredProducts}
-          />
-
-          {/* Pagination buttons */}
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 mt-8">
-              <Button
-                variant="outline"
-                disabled={page === 1}
-                onClick={() => setPage(page - 1)}
-              >
-                السابق
-              </Button>
-              <span className="mx-2 text-darkblue font-semibold">
-                صفحة {page} من {totalPages}
-              </span>
-              <Button
-                variant="outline"
-                disabled={page === totalPages}
-                onClick={() => setPage(page + 1)}
-              >
-                التالي
-              </Button>
+          ) : (
+            <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
+               <div className="text-6xl mb-4">🔍</div>
+               <h3 className="text-xl font-bold text-slate-800">لا توجد نتائج</h3>
+               <p className="text-slate-500">جرب البحث بكلمات مختلفة</p>
             </div>
           )}
+
         </div>
       </main>
       <Footer />

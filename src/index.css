@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 350 30% 94%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -51,8 +51,7 @@
   }
 
   .dark {
-    --background:
-    --background: 350 64% 10%; /* Dark red background */
+    --background: 350 30% 94%;
     --foreground: 210 40% 98%;
 
     --card: 350 64% 10%;
@@ -99,9 +98,9 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Tajawal', sans-serif;
-  }
+  background-color: hsl(var(--background));
+}
+
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Tajawal', sans-serif;
@@ -122,3 +121,39 @@
 html {
   direction: rtl;
 }
+/* Spotlight container */
+.spotlight-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+  600px circle at var(--x, 50%) var(--y, 50%),
+  rgba(220, 38, 38, 0.12),
+  transparent 40%
+);
+
+  transition: background 0.1s linear;
+  z-index: 0;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    to left,
+    transparent,
+    hsl(var(--primary)),
+    transparent
+  );
+}
+

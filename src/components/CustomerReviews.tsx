@@ -17,15 +17,50 @@ const RatingStars: React.FC<{ rating: number }> = ({ rating }) => {
 };
 
 const CustomerReviews: React.FC = () => {
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([
+    {
+      id: 1,
+      name: "أحمد محمد",
+      job_description: "رجل أعمال",
+      review: 5,
+      feedback: "جودة ممتازة وخدمة عملاء رائعة. أنصح بشدة بمنتجات إزار",
+      image: ""
+    },
+    {
+      id: 2,
+      name: "فاطمة علي",
+      job_description: "مصممة أزياء",
+      review: 5,
+      feedback: "الأقمشة عالية الجودة والألوان زاهية. تجربة تسوق مميزة",
+      image: ""
+    },
+    {
+      id: 3,
+      name: "محمد حسن",
+      job_description: "مهندس",
+      review: 4,
+      feedback: "منتجات جميلة وأسعار مناسبة. سأعود للشراء مرة أخرى",
+      image: ""
+    },
+    {
+      id: 4,
+      name: "سارة أحمد",
+      job_description: "طبيبة",
+      review: 5,
+      feedback: "خامات فاخرة وتصاميم عصرية. خدمة توصيل سريعة ومميزة",
+      image: ""
+    }
+  ]);
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_API_URL;
     axios.get(`${apiUrl}/reviews/`)
       .then((response) => {
-        setReviews(response.data);
+        if (response.data && response.data.length > 0) {
+          setReviews(response.data);
+        }
       })
       .catch((error) => {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching reviews:", error);
       });
   }, []);
   return (

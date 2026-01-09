@@ -1,144 +1,165 @@
 import React, { useState, useEffect } from 'react';
-import { Filter, X, Search as SearchIcon } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Input } from "@/components/ui/input";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import axios from 'axios';
+import { Search as SearchIcon, X, Loader2 } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 
 interface FilterBarProps {
-  baseUrl: string; // e.g. '/products/' or `/category-products/<id>/`
+  baseUrl: string;
   onFilterChange: (filteredProducts: any[]) => void;
+  initialProducts: any[];
+  categoryId?: string;
 }
 
-export const FilterBar: React.FC<FilterBarProps> = ({ baseUrl, onFilterChange }) => {
-  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+export const FilterBar: React.FC<FilterBarProps> = ({ 
+  baseUrl, 
+  onFilterChange, 
+  initialProducts, 
+  categoryId 
+}) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isOpen, setIsOpen] = useState(true);
   const [isSearching, setIsSearching] = useState(false);
+  const [debouncedSearch, setDebouncedSearch] = useState<string>('');
 
-  // Predefined keywords for filtering
-  const keywords = ['بوكسر', 'شورت', 'فنيلة'];
+  // 1. Debounce Logic
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setDebouncedSearch(searchQuery.trim());
+    }, 800); // Reduced to 800ms for snappier feel
+    return () => clearTimeout(t);
+  }, [searchQuery]);
 
-  // Fetch filtered products from backend
+  // 2. Search Logic (Supabase)
   useEffect(() => {
     const fetchFilteredProducts = async () => {
+      // Restore initial state if empty
+      if (debouncedSearch === '') {
+        onFilterChange(initialProducts || []);
+        setIsSearching(false);
+        return;
+      }
+
       setIsSearching(true);
       try {
-        let url = baseUrl;
-        const params: any = {};
-        if (searchQuery.trim() !== '') params.search = searchQuery;
-        if (selectedKeywords.length > 0) params.keywords = selectedKeywords.join(',');
-        // Build query string
-        const queryString = new URLSearchParams(params).toString();
-        if (queryString) url += (url.includes('?') ? '&' : '?') + queryString;
-        const response = await axios.get(url);
-        onFilterChange(response.data.products || response.data || []);
+        let query = supabase
+          .from('core_product')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (categoryId) {
+          query = query.eq('category_id', categoryId);
+        }
+
+        // Search logic
+        if (debouncedSearch) {
+          const s = debouncedSearch.replace(/%/g, '\\%').replace(/_/g, '\\_');
+          query = query.or(`header.ilike.%${s}%,description.ilike.%${s}%`);
+        }
+
+        const { data: prodRows, error: prodError } = await query;
+        if (prodError) throw prodError;
+
+        // Fetch colors for the found products
+        const ids = (prodRows ?? []).map((p: any) => p.id);
+        let colorsByProduct: Record<number, any[]> = {};
+        
+        if (ids.length > 0) {
+          const { data: colorRows } = await supabase
+            .from('core_productcolor')
+            .select('*')
+            .in('product_id', ids);
+            
+          colorsByProduct = (colorRows ?? []).reduce((acc: any, row: any) => {
+            (acc[row.product_id] ||= []).push(row);
+            return acc;
+          }, {});
+        }
+
+        const transformed = (prodRows ?? []).map((p: any) => ({
+          id: p.id,
+          header: p.header,
+          description: p.description,
+          category_id: String(p.category_id),
+          colors: (colorsByProduct[p.id] ?? []).map((c: any) => ({
+            id: c.id,
+            name: c.name,
+            color_code: c.color_code,
+            image: c.image,
+            is_available: c.is_available,
+            product: c.product_id,
+          })),
+        }));
+
+        onFilterChange(transformed);
       } catch (error) {
-        console.error('Error fetching filtered products:', error);
+        console.error('Filter Error:', error);
         onFilterChange([]);
       } finally {
         setIsSearching(false);
       }
     };
+
     fetchFilteredProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedKeywords, searchQuery, baseUrl]);
+  }, [debouncedSearch]);
 
-  // Toggle keyword selection
-  const toggleKeyword = (keyword: string) => {
-    setSelectedKeywords(prev =>
-      prev.includes(keyword)
-        ? prev.filter(k => k !== keyword)
-        : [...prev, keyword]
-    );
-  };
-
-  // Reset all filters
   const resetFilters = () => {
-    setSelectedKeywords([]);
     setSearchQuery('');
+    onFilterChange(initialProducts || []);
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 w-full">
-      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <Filter size={18} className="text-darkblue" />
-            <h2 className="text-sm font-bold text-darkblue">تصفية المنتجات</h2>
-          </div>
-          <div className="flex items-center gap-2">
-            {(selectedKeywords.length > 0 || searchQuery.trim() !== '') && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={resetFilters}
-                className="text-xs hover:text-red/90"
-              >
-                إعادة ضبط
-              </Button>
+    <div className="w-full flex justify-center">
+      {/* The Floating Pill Container */}
+      <div className="
+        relative w-full max-w-2xl 
+        bg-white/80 backdrop-blur-xl 
+        border border-slate-200 
+        rounded-full 
+        shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+        transition-all duration-300
+        focus-within:shadow-[0_8px_30px_rgba(220,38,38,0.1)]
+        focus-within:border-red/30
+      ">
+        <div className="flex items-center px-4 py-3">
+          
+          {/* Search Icon / Loader */}
+          <div className="flex-shrink-0 text-slate-400 ml-3">
+            {isSearching ? (
+              <Loader2 className="animate-spin text-red" size={20} />
+            ) : (
+              <SearchIcon size={20} />
             )}
-            <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-darkblue">
-                {isOpen ? <X size={16} /> : <Filter size={16} />}
-              </Button>
-            </CollapsibleTrigger>
-          </div>
-        </div>
-
-        <CollapsibleContent>
-          {/* Search Field */}
-          <div className="mb-4">
-            <div className="relative">
-              <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-              <Input
-                type="text"
-                placeholder="ابحث عن منتج..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-darkblue"
-              />
-            </div>
           </div>
 
-          {/* Keywords Filter */}
-          <div>
-            <div className="space-y-2">
-              <h3 className="text-sm font-medium">نوع المنتج</h3>
-              <ToggleGroup type="multiple" className="flex flex-wrap gap-2">
-                {keywords.map(keyword => (
-                  <ToggleGroupItem
-                    key={keyword}
-                    value={keyword}
-                    variant={selectedKeywords.includes(keyword) ? "default" : "outline"}
-                    onClick={() => toggleKeyword(keyword)}
-                    className="bg-red/10 text-xs"
-                  >
-                    {keyword}
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
-            </div>
-          </div>
+          {/* Input Field */}
+          <input
+            type="text"
+            placeholder="ابحث عن منتج، وصف، أو نوع..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="
+              w-full bg-transparent border-none outline-none 
+              text-slate-700 placeholder:text-slate-400
+              text-base
+            "
+          />
 
-          {/* Filter chips for selected filters */}
-          {selectedKeywords.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-2">
-              {selectedKeywords.map(keyword => (
-                <div
-                  key={keyword}
-                  className="bg-softgray text-darkblue text-xs px-2 py-1 rounded-full flex items-center cursor-pointer"
-                  onClick={() => toggleKeyword(keyword)}
-                >
-                  <span>{keyword}</span>
-                  <button className="mr-2 text-xs">&times;</button>
-                </div>
-              ))}
-            </div>
+          {/* Reset Button (Only shows when typing) */}
+          {searchQuery && (
+            <button
+              onClick={resetFilters}
+              className="
+                flex-shrink-0 
+                bg-slate-100 hover:bg-red/10 hover:text-red
+                text-slate-400
+                rounded-full p-1 
+                transition-colors duration-200
+              "
+            >
+              <X size={16} />
+            </button>
           )}
-        </CollapsibleContent>
-      </Collapsible>
+        </div>
+      </div>
     </div>
   );
 };

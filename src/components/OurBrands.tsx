@@ -1,122 +1,169 @@
-// This file was renamed from BusinessPartners.tsx to OurBrands.tsx
-// The component is defined below
+import React, { useState, useRef } from "react";
+import { ArrowUpRight } from "lucide-react";
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useIsMobile } from '../hooks/use-mobile';
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Button } from "@/components/ui/button";
-import { Check, Shield, Award } from "lucide-react";
-
-interface Brand {
-  id: number;
-  name: string;
-  logo: string;
-  link: string;
-  bgImage: string;
-}
-
-const brands: Brand[] = [
-  {
-    id: 1,
-    name: "BAJHAM",
-    logo: "https://placehold.co/400x200/ffffff/af2734?text=عزار+الفاخرة",
-    link: "/products/premium",
-    bgImage: "/assets/weave-red.webp"
-  },
-  {
-    id: 2,
-    name: "IZAR CLASSIC",
-    logo: "https://placehold.co/400x200/ffffff/af2734?text=عزار+كلاسيك",
-    link: "/products/classic",
-    bgImage: "/assets/weave-white.webp"
-  }
-];
-
-const OurBrands: React.FC = () => {
+export default function OurBrands() {
   return (
-    <div className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-darkblue mb-2">علامات تابعة لـــ ازار</h2>
-          <div className="w-24 h-1 bg-red-light mx-auto mb-6"></div>
+    <section className="py-12 lg:py-20 bg-white flex items-center justify-center px-4">
+      <div className="w-full max-w-6xl mx-auto">
+        
+        <div className="mb-8 lg:mb-12 text-center">
+          <h2 className="text-2xl lg:text-3xl font-bold text-slate-900">شركاء النجاح</h2>
+          <p className="text-slate-500 mt-2 text-sm lg:text-base">نقدم لكم أرقى العلامات التجارية</p>
         </div>
-        {/* Modern brand showcase grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-9xl mx-auto">
-          {brands.map((brand) => (             
-              <div
-                className="relative p-0.5 rounded-lg shadow-lg bg-cover bg-center rounded-xl overflow-hidden group"
-                key={brand.id} style={{ backgroundImage: `url(${brand.bgImage})` }}
-              >
-                {/* Dark overlay with blur for background filter */}
-                <div className="absolute inset-0 bg-white/10 backdrop-blur-md z-0 group-hover:backdrop-blur-0 transition-all duration-300" />
-                 <AspectRatio ratio={21/9} className="relative overflow-hidden rounded-lg z-10">
-                <h1 className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-white transition-all duration-300 group-hover:text-5xl">
-                    {brand.name}
-                </h1>
-                </AspectRatio>
-              </div>
-          ))}
-        </div>
-        {/* Values section with expanded advantages */}
-        <div className="mt-16 bg-gradient-to-br from-white to-beige/20 rounded-xl shadow-md p-8 mx-auto">
-          <h3 className="text-3xl font-bold text-darkblue mb-6 text-center">مزايا منتجاتنا</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 lg:gap-12 w-full">
-            {/* ...existing advantage cards... */}
-            <div className="text-center">
-              <div className="mb-4 mx-auto lg:w-20 w-12 lg:h-20 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 lg:w-10 lg:h-10 sm:h-8 sm:w-8 text-darkblue" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h4 className="text-base lg:text-2xl sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">جودة مضمونة</h4>
-              <p className="text-xs lg:text-lg sm:text-sm text-gray-600">أقمشة مختارة بعناية وإنتاج يخضع للرقابة المستمرة</p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 mx-auto lg:w-20 w-12 lg:h-20 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 lg:w-10 lg:h-10 sm:h-8 sm:w-8 text-darkblue" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h4 className="text-base lg:text-2xl sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">تصاميم عصرية</h4>
-              <p className="text-xs lg:text-lg sm:text-sm text-gray-600">تواكب أحدث صيحات الموضة وتناسب الذوق العربي الأصيل</p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 mx-auto lg:w-20 w-12 lg:h-20 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 lg:w-10 lg:h-10 sm:h-8 sm:w-8 text-darkblue" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h4 className="text-base lg:text-2xl sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">سعر مناسب</h4>
-              <p className="text-xs lg:text-lg sm:text-sm text-gray-600">أفضل سعر في السوق مع الحفاظ على جودة المنتج</p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 mx-auto lg:w-20 w-12 lg:h-20 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
-                <Check className="h-6 w-6 lg:w-10 lg:h-10 sm:h-8 sm:w-8 text-darkblue" />
-              </div>
-              <h4 className="text-base lg:text-2xl sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">خدمة سريعة</h4>
-              <p className="text-xs lg:text-lg sm:text-sm text-gray-600">توصيل سريع وفعال لجميع المناطق</p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 mx-auto lg:w-20 w-12 lg:h-20 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
-                <Shield className="h-6 w-6 lg:w-10 lg:h-10 sm:h-8 sm:w-8 text-darkblue" />
-              </div>
-              <h4 className="text-base lg:text-2xl sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">الدعم الفني</h4>
-              <p className="text-xs lg:text-lg sm:text-sm text-gray-600">دعم فني لجميع المنتجات</p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 mx-auto lg:w-20 w-12 lg:h-20 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-white shadow-md border border-red-light/20">
-                <Award className="h-6 w-6 lg:w-10 lg:h-10 sm:h-8 sm:w-8 text-darkblue" />
-              </div>
-              <h4 className="text-base lg:text-2xl sm:text-lg font-semibold text-darkblue mb-1 sm:mb-2">تصدير عالمي</h4>
-              <p className="text-xs lg:text-lg sm:text-sm text-gray-600">نصدر منتاجاتنا لدول المنطقة</p>
-            </div>
-          </div>
+
+        {/* Standard Grid: 2 Equal Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          
+          {/* CARD 1: BAJHAM (Standard Cover) */}
+          <BrandCard
+            name="BAJHAM"
+            image="/assets/brands/bajham.jpg"
+            layout="cover"
+          />
+
+          {/* CARD 2: IZAR (Contained Image + Green Background) */}
+          <BrandCard
+            name="ROZE"
+            image="/assets/brands/roze.png"
+            layout="contain"
+            accentColor="#064c47" 
+          />
+          
         </div>
       </div>
+    </section>
+  );
+}
+
+interface BrandCardProps {
+  name: string;
+  image: string;
+  layout?: "cover" | "contain";
+  accentColor?: string;
+}
+
+function BrandCard({ 
+  name, 
+  image, 
+  layout = "cover", 
+  accentColor = "#000000"
+}: BrandCardProps) {
+  
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ x: 50, y: 50 });
+  const [opacity, setOpacity] = useState(0);
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setPos({ x, y });
+  };
+
+  // --- STYLING LOGIC ---
+  const isContain = layout === "contain";
+
+  // If contain: Center the image. If cover: Fill the card.
+  const containerStyle = isContain 
+    ? "flex items-center justify-center" 
+    : "";
+
+  const imgStyle = isContain
+    ? "w-full h-auto object-contain max-h-[60%]" // Restrict height so we see the green background
+    : "w-full h-full object-cover";
+
+  return (
+    <div 
+      ref={cardRef}
+      onMouseMove={handleMove}
+      onMouseEnter={() => setOpacity(1)}
+      onMouseLeave={() => setOpacity(0)}
+      className={`
+        relative group block 
+        h-[400px] lg:h-[500px] w-full 
+        rounded-[2rem] overflow-hidden 
+        shadow-sm border border-gray-100
+        lg:cursor-none 
+        cursor-pointer
+      `}
+    >
+      {/* --- LAYER 1: BASE STATE (COLORFUL BY DEFAULT) --- */}
+      <div 
+        className={`absolute inset-0 ${containerStyle}`}
+        style={{
+          backgroundColor: isContain ? accentColor : "#0f172a"
+        }}
+      >
+        <img
+          src={image}
+          alt={name}
+          className={`
+            ${imgStyle}
+            opacity-100
+            transition-transform duration-700 ease-out group-hover:scale-105
+          `}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      </div>
+
+      {/* --- LAYER 2: SPOTLIGHT REVEAL (ON STATE) --- */}
+      <div 
+        className={`hidden lg:flex absolute inset-0 z-10 transition-opacity duration-200 ${containerStyle}`}
+        style={{
+          opacity: opacity,
+          maskImage: `radial-gradient(350px circle at ${pos.x}% ${pos.y}%, black, transparent)`,
+          WebkitMaskImage: `radial-gradient(350px circle at ${pos.x}% ${pos.y}%, black, transparent)`,
+          // Here we apply the Green Background
+          backgroundColor: isContain ? accentColor : undefined
+        }}
+      >
+        <img
+          src={image}
+          alt={name}
+          className={`${imgStyle} transition-transform duration-700 ease-out group-hover:scale-105`}
+        />
+      </div>
+
+      {/* --- LAYER 3: TEXT --- */}
+      <div 
+        className="absolute bottom-0 left-0 w-full p-8 lg:p-10 z-20 pointer-events-none"
+        style={{
+          transform: `translate(${opacity ? (pos.x - 50) / 40 : 0}px, ${opacity ? (pos.y - 50) / 40 : 0}px)`
+        }}
+      >
+        <div className="border-l-[6px] border-red-600 pl-6 transition-all duration-300 lg:group-hover:pl-8">
+          <h2 className="text-4xl lg:text-6xl font-black text-white leading-none tracking-tighter drop-shadow-lg">
+            {name}
+          </h2>
+        </div>
+      </div>
+
+      {/* --- LAYER 4: CUSTOM CURSOR --- */}
+      <div
+        className="
+          hidden lg:flex
+          absolute w-24 h-24 bg-red-600 rounded-full z-30
+          items-center justify-center
+          pointer-events-none text-white
+          shadow-[0_0_30px_rgba(220,38,38,0.4)]
+          transition-opacity duration-300 ease-out
+        "
+        style={{
+          left: `${pos.x}%`,
+          top: `${pos.y}%`,
+          transform: `translate(-50%, -50%) scale(${opacity})`,
+          opacity: opacity,
+        }}
+      >
+        <ArrowUpRight size={32} strokeWidth={1.5} />
+      </div>
+      
+      {/* Mobile Icon */}
+      <div className="absolute bottom-6 right-6 lg:hidden text-white/80">
+         <ArrowUpRight size={28} />
+      </div>
+
     </div>
   );
-};
-
-export default OurBrands;
+}

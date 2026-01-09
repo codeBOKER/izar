@@ -6,24 +6,22 @@ import Hero from '../components/Hero';
 import CategoryList from '../components/CategoryList';
 import OurBrands from '../components/OurBrands';
 import CustomerReviews from '../components/CustomerReviews';
-import SupabaseTest from '../components/test';
 
 
 const Index: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow">
+      <main className="min-h-screen">
+
         
         <Hero />
-
-        <SupabaseTest />
         
         <CategoryList />
         
         <OurBrands />
         
-        {/* <CustomerReviews /> */}
+        <CustomerReviews />
       </main>
       <Footer />
     </div>
