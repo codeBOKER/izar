@@ -9,13 +9,42 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  // Guard: if product has no colors, render a simple fallback card
+  const navigate = useNavigate();
+  if (!product || !product.colors || product.colors.length === 0) {
+    return (
+      <div
+        className="
+    product-card
+    bg-white
+    rounded-2xl
+    overflow-hidden
+    transition-all duration-500
+    border border-transparent
+    hover:border-red/30
+    hover:shadow-[0_25px_50px_rgba(220,38,38,0.15)]
+  "
+      >
+        <div className="group relative aspect-[3/4] bg-beige overflow-hidden rounded-2xl flex items-center justify-center">
+          <div
+            onClick={() => navigate(`/product/${product?.id ?? ''}`)}
+            className="cursor-pointer text-center p-4"
+            role="button"
+          >
+            <div className="h-40 w-32 bg-gray-100 rounded-md mx-auto" />
+            <h3 className="mt-2 text-sm font-bold text-darkblue">{product?.header ?? 'منتج'}</h3>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const middleIndex = Math.floor(product.colors.length / 2);
   const [selectedColor, setSelectedColor] = useState<ProductColor>(product.colors[middleIndex]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   
   // Get the current color index
-  const currentIndex = product.colors.findIndex(color => color.id === selectedColor.id);
+  const currentIndex = selectedColor ? product.colors.findIndex(color => color.id === selectedColor.id) : 0;
   
   // Handle navigation between colors
   const navigateColor = useCallback((direction: 'prev' | 'next') => {
@@ -44,7 +73,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     onSwipedLeft: () => handleSwipe('left'),
     onSwipedRight: () => handleSwipe('right'),
     trackMouse: false,
-    preventScrollOnSwipe: true,
+    preventScrollOnSwipe: false,
     swipeDuration: 300,
     touchEventOptions: { passive: true },
   });
@@ -56,7 +85,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   useEffect(() => {
     setIsLoading(true);
-  }, [selectedColor.id]);
+    // Preload the image
+    const img = new Image();
+    img.onload = () => setIsLoading(false);
+    img.onerror = () => setIsLoading(false);
+    img.src = selectedColor.image;
+  }, [selectedColor?.id]);
 
   // Check if navigation arrows should be shown (desktop only)
   const showArrows = product.colors.length > 1;
@@ -75,7 +109,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 >
   <div
     {...swipeHandlers}
-    className="group relative aspect-[3/4] bg-beige overflow-hidden touch-none rounded-2xl"
+    className="group relative aspect-[3/4] bg-beige overflow-hidden rounded-2xl"
   >
     {/* Click zones للتنقل */}
     <div
@@ -103,7 +137,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       alt={product.header}
       className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105`}
       draggable={false}
-      onLoad={() => setIsLoading(false)}
     />
 
     {/* Loader */}

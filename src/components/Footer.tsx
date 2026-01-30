@@ -147,9 +147,9 @@ const Footer: React.FC = () => {
         
         {/* --- COPYRIGHT --- */}
         <div className="border-t border-white/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white/40 gap-4">
-          <p>&copy; {new Date().getFullYear()} شركة إزار. جميع الحقوق محفوظة.</p>
+          <p>&copy; {new Date().getFullYear()} شركة إزار للصناعة والتجارة الخارجية. جميع الحقوق محفوظة.</p>
           <div className="flex gap-6">
-            <span>صنع بإتقان</span>
+            <span>ازار ننسج الاصالة</span>
             <div className="h-4 w-px bg-white/20" />
             <span>IZAR Global</span>
           </div>

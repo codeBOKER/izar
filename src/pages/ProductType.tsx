@@ -80,18 +80,17 @@ const ProductType: React.FC = () => {
   }, [categoryId]);
 
   // --- ICONS MAPPING ---
-  const categoryAdvantages = categoryId === '1'
+  const categoryAdvantages = categoryId === '3'
     ? [
-        { text: 'قطن %100', icon: Shirt },
-        { text: 'قطن معطر', icon: Sparkles },
-        { text: 'وزن مثالي', icon: Shield },
-        { text: 'القطن المصري', icon: Award },
-        { text: 'مواصفات تركية', icon: Star }
+        { text: 'قطن %100', Image: 'ctn.png' },
+        { text: 'قطن معطر', icon: 'per.png' },
+        { text: 'تصاميم عصرية', icon: 'iso.png' }       
+       
       ]
     : [
-        { text: 'أقمشة فاخرة', icon: Shirt },
-        { text: 'تصاميم عصرية', icon: Palette },
-        { text: 'جودة عالية', icon: Award }
+        { text: 'أقمشة فاخرة', icon: 'per.png' },
+        { text: 'تصاميم عصرية', icon: 'iso.png' },
+        { text: 'جودة عالية', icon: 'ctn.png' }
       ];
 
   // --- SKELETON LOADING STATE ---
@@ -174,22 +173,25 @@ const ProductType: React.FC = () => {
               <div className="flex-1 w-full overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
                 <div className="flex justify-around lg:justify-start gap-8 min-w-max">
                   {categoryAdvantages.map((advantage, index) => {
-                    const IconComponent = advantage.icon;
+                    const IconOrImage: any = (advantage as any).image ?? (advantage as any).Image ?? (advantage as any).icon;
+                    const isImage = typeof IconOrImage === 'string';
                     return (
                       <div key={index} className="group flex flex-col items-center gap-3">
-                        <div className="
-                          w-12 h-12 lg:w-14 lg:h-14 rounded-2xl 
-                          bg-red/5 text-red
-                          flex items-center justify-center
-                          transition-all duration-300
-                          group-hover:bg-red group-hover:text-white group-hover:shadow-lg group-hover:shadow-red/30
-                          group-hover:-translate-y-1
-                        ">
-                          <IconComponent strokeWidth={1.5} size={24} />
-                        </div>
-                        <span className="text-xs lg:text-sm font-bold text-slate-700 group-hover:text-red transition-colors">
+                        {/* <div className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-2xl bg-red/5 text-red flex items-center justify-center transition-all duration-300 group-hover:bg-red group-hover:text-white group-hover:shadow-lg group-hover:shadow-red/30 group-hover:-translate-y-1 overflow-hidden"> */}
+                          {isImage ? (
+                            <img
+                              src={IconOrImage.startsWith('/') ? IconOrImage : `/assets/advantages/${IconOrImage}`}
+                              alt={advantage.text}
+                              loading="lazy"
+                              className="w-[60px] h-[60px] md:w-[100px] md:h-[100px] lg:w-[140px] lg:h-[140px] object-contain  max-w-[150px] max-h-[150px] transition-all duration-300 group-hover:scale-105"
+                            />
+                          ) : (
+                            <IconOrImage strokeWidth={1.5} size={20} />
+                          )}
+                        {/* </div> */}
+                        {/* <span className="text-xs lg:text-sm font-bold text-slate-700 group-hover:text-red transition-colors">
                           {advantage.text}
-                        </span>
+                        </span> */}
                       </div>
                     );
                   })}

@@ -7,7 +7,7 @@ export default function OurBrands() {
       <div className="w-full max-w-6xl mx-auto">
         
         <div className="mb-8 lg:mb-12 text-center">
-          <h2 className="text-2xl lg:text-3xl font-bold text-slate-900">شركاء النجاح</h2>
+          <h2 className="text-2xl lg:text-3xl font-bold text-slate-900">علاماتنا الاخرى</h2>
           <p className="text-slate-500 mt-2 text-sm lg:text-base">نقدم لكم أرقى العلامات التجارية</p>
         </div>
 

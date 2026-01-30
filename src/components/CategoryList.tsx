@@ -82,58 +82,61 @@ const CategoryList: React.FC = () => {
         >
           {/* IMAGE PART */}
           <div className="relative h-64 md:h-72 overflow-hidden bg-white">
-            <img 
-              src={categoryObj.image}
-              alt={categoryObj.header}
-              className="
-                w-full h-full object-cover
-                transition-transform duration-700
-                group-hover:scale-110
-              "
-            />
+            <Link to={`/products/${String(categoryObj.id)}/`}>
+              <img 
+                src="2.jpg"
+                alt={categoryObj.header}
+                className="
+                  w-full h-full object-cover
+                  transition-transform duration-700
+                  group-hover:scale-110
+                  cursor-pointer
+                "
+              />
 
-            {/* Gradient overlay */}
-            <div className="
-              absolute inset-0
-              bg-gradient-to-t
-              from-black/90 via-black/60 to-transparent
-              flex flex-col justify-end
-            ">
-              <div className="p-4 md:p-6 text-white">
-                <h3 className="
-                  text-xl md:text-2xl font-bold mb-1 md:mb-2
-                  transition-colors duration-300
-                  group-hover:text-red
-                ">
-                  {categoryObj.header}
-                </h3>
+              {/* Gradient overlay */}
+              <div className="
+                absolute inset-0
+                bg-gradient-to-t
+                from-black/90 via-black/60 to-transparent
+                flex flex-col justify-end
+              ">
+                <div className="p-4 md:p-6 text-white">
+                  <h3 className="
+                    text-xl md:text-2xl font-bold mb-1 md:mb-2
+                    transition-colors duration-300
+                    group-hover:text-red
+                  ">
+                    {categoryObj.header}
+                  </h3>
 
-                <p className="text-white/80 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">
-                  {categoryObj.description}
-                </p>
+                  <p className="text-white/80 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">
+                    {categoryObj.description}
+                  </p>
 
-                <div className="
-                  inline-flex items-center
-                  bg-white/20 backdrop-blur-sm
-                  px-3 py-1 rounded-full
-                ">
-                  <span className="text-xs font-medium text-white ml-1">
-                    المقاسات:
-                  </span>
-                  <div className="flex flex-wrap gap-0.5">
-                    {(categoryObj.sizes ?? "")
-                      .split(",")
-                      .filter(Boolean)
-                      .slice(0, isMobile ? 5 : undefined)
-                      .map((size, index, arr) => (
-                        <span key={index} className="text-xs text-white">
-                          {size}{index < arr.length - 1 ? "، " : ""}
-                        </span>
-                      ))}
+                  <div className="
+                    inline-flex items-center
+                    bg-white/20 backdrop-blur-sm
+                    px-3 py-1 rounded-full
+                  ">
+                    <span className="text-xs font-medium text-white ml-1">
+                      المقاسات:
+                    </span>
+                    <div className="flex flex-wrap gap-0.5">
+                      {(categoryObj.sizes ?? "")
+                        .split(",")
+                        .filter(Boolean)
+                        .slice(0, isMobile ? 5 : undefined)
+                        .map((size, index, arr) => (
+                          <span key={index} className="text-xs text-white">
+                            {size}{index < arr.length - 1 ? "، " : ""}
+                          </span>
+                        ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
 
           {/* PRODUCTS PREVIEW */}
