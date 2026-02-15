@@ -84,7 +84,7 @@ const CategoryList: React.FC = () => {
           <div className="relative h-64 md:h-72 overflow-hidden bg-white">
             <Link to={`/products/${String(categoryObj.id)}/`}>
               <img 
-                src="2.jpg"
+                src={categoryObj.image}
                 alt={categoryObj.header}
                 className="
                   w-full h-full object-cover

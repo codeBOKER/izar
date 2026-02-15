@@ -5,11 +5,12 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 // USE IMAGES THAT REPRESENT CATEGORIES HERE
 const SHOWCASE_IMAGES = [
-  "/assets/clothes/bage_shirt.png", 
-  "/assets/clothes/darkRed_shirt.png",
-  "/assets/clothes/whiteUN_shirt.png",
-  "/assets/clothes/black_shirt.png",
-  "/assets/clothes/whiteUN_tra.png",
+  "https://i.imgur.com/qKSxQ7F.jpeg",
+  "https://res.cloudinary.com/drfez4pmf/image/upload/v1769802045/my_store/%D9%85%D8%AC%D9%84%D8%AF%20%D8%AC%D8%AF%D9%8A%D8%AF%20%282%29/ehotb97bd75q422pwonu.webp",
+  "https://i.imgur.com/ArnVwRg.jpeg",
+  "https://res.cloudinary.com/drfez4pmf/image/upload/v1769802263/my_store/%D9%85%D8%AC%D9%84%D8%AF%20%D8%AC%D8%AF%D9%8A%D8%AF/ksvumoy3yrhkiyiqdatc.webp",
+  "https://i.imgur.com/xIRZHPJ.jpeg",
+  "https://res.cloudinary.com/drfez4pmf/image/upload/v1769801843/my_store/1%20%289%29/uxznqeczzdkefidyew5o.webp"
 ];
 
 const Hero: React.FC = () => {
