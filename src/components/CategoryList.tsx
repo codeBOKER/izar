@@ -127,7 +127,7 @@ const CategoryList: React.FC = () => {
                       {(categoryObj.sizes ?? "")
                         .split(",")
                         .filter(Boolean)
-                        .slice(0, isMobile ? 5 : undefined)
+                        .slice(0, undefined)
                         .map((size, index, arr) => (
                           <span key={index} className="text-xs text-white">
                             {size}{index < arr.length - 1 ? "، " : ""}
