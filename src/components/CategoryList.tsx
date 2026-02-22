@@ -88,6 +88,7 @@ const CategoryList: React.FC = () => {
                 alt={categoryObj.header}
                 className="
                   w-full h-full object-cover
+                  object-top
                   transition-transform duration-700
                   group-hover:scale-110
                   cursor-pointer
